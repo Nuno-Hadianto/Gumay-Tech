@@ -86,6 +86,7 @@ export const generateNotaHtml = (
                 
                 <div class="nota-sig-box">
                     <div class="nota-sig-title">Hormat Kami,</div>
+                    <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
                     <div class="nota-sig-line">${settings.business_name || 'Toko'}</div>
                 </div>
                 
@@ -227,6 +228,7 @@ export const generateInvoiceHtml = (
                 </div>
                 <div class="inv-sig-col">
                     <div class="nota-sig-title">Hormat Kami</div>
+                    <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
                     <div class="nota-sig-line">${settings.business_name || 'NUNOX'}</div>
                 </div>
             </div>
@@ -301,6 +303,7 @@ export const generateBlankNotaHtml = (settings: Partial<Settings> | null, logoBa
                 </div>
                 <div class="nota-sig-box">
                     <div class="nota-sig-title">Hormat Kami</div>
+                    <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
                     <div class="nota-sig-line">${settings.business_name || 'NUNOX'}</div>
                 </div>
             </div>
@@ -368,6 +371,7 @@ export const generateBlankReceiptHtml = (settings: Partial<Settings> | null, log
                 </div>
                 <div class="rcpt-sig-box">
                     <p class="rcpt-date">................., .............................. ${new Date().getFullYear()}</p>
+                    <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
                     <div class="rcpt-sig-line"></div>
                     <p class="rcpt-sig-title">Tanda Tangan Penerima</p>
                 </div>
@@ -497,6 +501,7 @@ export const generateReportHtml = (
             
             <div style="margin-top: 50px; text-align: right; color: #64748b; font-size: 10pt;">
                 <div>Dicetak pada: ${new Date().toLocaleString('id-ID')}</div>
+                <div style="margin-top: 10px;"><img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain;" alt="Tanda Tangan" /></div>
                 <div style="margin-top: 10px; font-weight: bold;">( ${settings.business_name || 'Pemilik'} )</div>
             </div>
         </div>
@@ -511,6 +516,20 @@ export const printHtml = async (
   const printArea = document.getElementById('print-area')
   if (printArea) {
     printArea.innerHTML = html
+
+    // Wait for images to load before printing
+    const images = printArea.querySelectorAll('img')
+    const imagePromises = Array.from(images).map((img) => {
+      if (img.complete) return Promise.resolve()
+      return new Promise((resolve) => {
+        img.onload = resolve
+        img.onerror = resolve
+      })
+    })
+    await Promise.all(imagePromises)
+    
+    // Give browser a tiny delay to ensure paint is complete
+    await new Promise((resolve) => setTimeout(resolve, 50))
 
     let styleTag = document.getElementById('dynamic-print-style')
     if (!styleTag) {
@@ -643,7 +662,7 @@ export const generateThermalNotaHtml = (
             
             <div class="thm-center thm-sig">
                 <div>Hormat Kami,</div>
-                <br><br><br>
+                <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
                 <div>( .................... )</div>
             </div>
             
