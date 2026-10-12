@@ -23,12 +23,6 @@
         </button>
       </div>
       <div class="export-actions">
-        <button @click="printBlankNota" class="btn btn-secondary btn-icon-text">
-          <FileText :size="16" /> Nota Kosong
-        </button>
-        <button @click="printBlankReceipt" class="btn btn-secondary btn-icon-text">
-          <FileText :size="16" /> Kwitansi Kosong
-        </button>
         <button
           @click="exportPdf"
           class="btn btn-danger btn-export"
@@ -164,15 +158,11 @@ import {
   TrendingUp,
   CheckCircle,
   Filter,
-  FileText,
   Inbox
 } from 'lucide-vue-next'
 import { ref, onMounted } from 'vue'
 import {
-  generateBlankNotaHtml,
-  generateBlankReceiptHtml,
   generateReportHtml,
-  printHtml,
   exportHtmlToPdf
 } from '../utils/printUtils'
 import { Toast, AppAlert } from '@/utils/alert'
@@ -281,27 +271,6 @@ const exportPdf = async () => {
   }
 }
 
-const printBlankNota = async () => {
-  try {
-    const { settings, logoBase64 } = await getCommonData()
-    const html = generateBlankNotaHtml(settings, logoBase64)
-    await printHtml(html, true) // landscape
-  } catch (error) {
-    console.error(error)
-    AppAlert.fire('Error', 'Gagal mencetak nota kosong.', 'error')
-  }
-}
-
-const printBlankReceipt = async () => {
-  try {
-    const { settings, logoBase64 } = await getCommonData()
-    const html = generateBlankReceiptHtml(settings, logoBase64)
-    await printHtml(html, true) // landscape
-  } catch (error) {
-    console.error(error)
-    AppAlert.fire('Error', 'Gagal mencetak kwitansi kosong.', 'error')
-  }
-}
 </script>
 
 <style scoped>
@@ -330,12 +299,6 @@ const printBlankReceipt = async () => {
   color: var(--text-primary);
 }
 .btn-generate, .btn-export {
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-icon-text {
   border-radius: 20px;
   display: flex;
   align-items: center;

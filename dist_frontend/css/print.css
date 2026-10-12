@@ -14,7 +14,8 @@
   .app-container,
   .login-screen,
   .modal,
-  .global-search-modal {
+  .global-search-modal,
+  .swal2-container {
     display: none !important;
   }
 
@@ -150,19 +151,7 @@
   font-style: italic;
   line-height: 22px;
 }
-.nota-blank-notes {
-  border: 1px dashed #94a3b8;
-  height: 80px;
-  border-radius: 8px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 10px;
-  margin-bottom: 5px;
-}
-.nota-blank-notes-text {
-  color: #94a3b8;
-}
+
 .nota-footer {
   display: flex;
   justify-content: space-between;
@@ -187,11 +176,12 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
+  min-height: 100px;
 }
 .nota-sig-title {
   font-size: 10pt;
-  margin-bottom: 70px;
+  margin-bottom: 5px;
 }
 .nota-sig-line {
   font-weight: 700;
@@ -202,13 +192,7 @@
   max-width: 200px;
   margin: 0 auto;
 }
-.nota-blank-footer {
-  text-align: center;
-  font-size: 8pt;
-  font-style: italic;
-  margin-top: 25px;
-  color: #64748b;
-}
+
 
 /* === INVOICE === */
 .invoice-box {
@@ -443,6 +427,10 @@
 .inv-sig-col {
   text-align: center;
   width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
 }
 
 /* === KWITANSI (RECEIPT) === */
@@ -535,7 +523,7 @@
   width: 250px;
 }
 .rcpt-date {
-  margin: 0 0 35px 0;
+  margin: 0 0 5px 0;
 }
 .rcpt-sig-line {
   border-bottom: 1px solid #000;

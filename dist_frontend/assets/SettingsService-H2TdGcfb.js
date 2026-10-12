@@ -1,0 +1,1 @@
+import{rr as e}from"./_plugin-vue_export-helper-_HKR-Qw9.js";var t,n=e((()=>{t={async getSettings(){if(!window.api?.getSettings)throw Error(`API not available`);return window.api.getSettings()},async updateSettings(e){if(!window.api?.updateSettings)throw Error(`API not available`);return window.api.updateSettings(e)}}}));export{n,t};

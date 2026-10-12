@@ -151,19 +151,7 @@
   font-style: italic;
   line-height: 22px;
 }
-.nota-blank-notes {
-  border: 1px dashed #94a3b8;
-  height: 80px;
-  border-radius: 8px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 10px;
-  margin-bottom: 5px;
-}
-.nota-blank-notes-text {
-  color: #94a3b8;
-}
+
 .nota-footer {
   display: flex;
   justify-content: space-between;
@@ -204,13 +192,7 @@
   max-width: 200px;
   margin: 0 auto;
 }
-.nota-blank-footer {
-  text-align: center;
-  font-size: 8pt;
-  font-style: italic;
-  margin-top: 25px;
-  color: #64748b;
-}
+
 
 /* === INVOICE === */
 .invoice-box {
