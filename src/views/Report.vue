@@ -22,14 +22,6 @@
           <Filter :size="16" /> Tampilkan
         </button>
       </div>
-      <div class="export-actions">
-        <button
-          @click="exportPdf"
-          class="btn btn-danger btn-export"
-        >
-          <Printer :size="16" /> Ekspor PDF
-        </button>
-      </div>
     </div>
 
     <!-- Stats Summary -->
@@ -152,7 +144,6 @@
 <script setup lang="ts">
 import {
   Calendar,
-  Printer,
   Wallet,
   TrendingDown,
   TrendingUp,
@@ -161,15 +152,9 @@ import {
   Inbox
 } from 'lucide-vue-next'
 import { ref, onMounted } from 'vue'
-import {
-  generateReportHtml,
-  exportHtmlToPdf
-} from '../utils/printUtils'
-import { Toast, AppAlert } from '@/utils/alert'
 import StatCard from '@/components/StatCard.vue'
-import type { ServiceOrder, Settings } from '../../shared/types'
+import type { ServiceOrder } from '../../shared/types'
 import { ReportService } from '@/services/ReportService'
-import { SettingsService } from '@/services/SettingsService'
 
 const startDate = ref<string>('')
 const endDate = ref<string>('')
@@ -221,56 +206,6 @@ const generateReport = async () => {
   }
 }
 
-
-
-const getCommonData = async () => {
-  const settings = (await SettingsService.getSettings()) as Settings
-  const logoBase64 = window.api && window.api.getLogoBase64 ? await window.api.getLogoBase64() : ''
-  return { settings, logoBase64 }
-}
-
-const exportPdf = async () => {
-  if (services.value.length === 0) {
-    return AppAlert.fire('Info', 'Tidak ada data untuk diekspor pada periode ini.', 'info')
-  }
-  try {
-    const { settings, logoBase64 } = await getCommonData()
-    let topParts: { part_name: string; total_sold: number; }[] = []
-    try {
-      topParts = (await ReportService.getTopSpareparts(startDate.value, endDate.value)) as { part_name: string; total_sold: number; }[]
-    } catch (e) {
-      console.error(e)
-    }
-
-    const html = generateReportHtml(
-      settings,
-      services.value,
-      startDate.value,
-      endDate.value,
-      totalOmset.value,
-      totalModal.value,
-      netProfit.value,
-      logoBase64,
-      topParts
-    )
-    const filename = `Laporan_Keuangan_${startDate.value}_sd_${endDate.value}.pdf`
-
-    const result = await exportHtmlToPdf(html, filename)
-    if (result && result.success) {
-      Toast.fire({
-        icon: 'success',
-        title: 'Laporan PDF berhasil disimpan!'
-      })
-    } else if (result && !result.canceled) {
-      AppAlert.fire('Error', 'Gagal menyimpan laporan PDF: ' + (result.error || ''), 'error')
-    }
-  } catch (error: unknown) {
-    console.error(error)
-    const err = error as Error
-    AppAlert.fire('Error', `Terjadi kesalahan saat memproses PDF: ${err?.message || String(error)}`, 'error')
-  }
-}
-
 </script>
 
 <style scoped>
@@ -298,16 +233,11 @@ const exportPdf = async () => {
   border: 1px solid var(--border-color);
   color: var(--text-primary);
 }
-.btn-generate, .btn-export {
+.btn-generate {
   border-radius: 20px;
   display: flex;
   align-items: center;
   gap: 6px;
-}
-.export-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 .stats-grid {
   display: grid;
