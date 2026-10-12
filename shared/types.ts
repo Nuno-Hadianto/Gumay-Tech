@@ -144,7 +144,7 @@ export interface Settings {
   phone: string;
   whatsapp?: string;
   address: string;
-  receipt_footer: string;
+  receipt_footer?: string;
   auto_backup_path?: string;
 
   wa_template_status?: string;

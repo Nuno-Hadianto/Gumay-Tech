@@ -27,15 +27,6 @@
                 style="resize: vertical;"
               ></textarea>
             </div>
-            <div class="form-group">
-              <label style="font-weight: 500; font-size: 0.9rem">Catatan Bawah Kwitansi</label>
-              <textarea
-                v-model="form.receipt_footer"
-                rows="2"
-                class="form-control"
-                style="resize: vertical;"
-              ></textarea>
-            </div>
             <div class="form-actions">
               <button type="submit" class="btn btn-primary settings-btn">
                 <Save :size="16" /> Simpan Identitas
@@ -239,7 +230,6 @@ const form = reactive<Settings>({
   business_name: '',
   phone: '',
   address: '',
-  receipt_footer: '',
   auto_backup_path: '',
   wa_template_status: '',
   sound_notification: true,
@@ -266,7 +256,6 @@ const loadSettings = async () => {
       form.business_name = settings.business_name || ''
       form.phone = settings.phone || settings.whatsapp || ''
       form.address = settings.address || ''
-      form.receipt_footer = settings.receipt_footer || ''
       form.auto_backup_path = settings.auto_backup_path || ''
       form.wa_template_status =
         settings.wa_template_status ||
@@ -299,7 +288,6 @@ const saveSettings = async () => {
       phone: form.phone,
       whatsapp: form.phone,
       address: form.address,
-      receipt_footer: form.receipt_footer,
       auto_backup_path: form.auto_backup_path,
       wa_template_status: form.wa_template_status,
       sound_notification: form.sound_notification,

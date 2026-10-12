@@ -195,12 +195,6 @@ export const generateInvoiceHtml = (
             
             <!-- Summary & Totals -->
             <div class="inv-summary-row">
-                <div class="inv-notes-box">
-                    <div class="inv-notes-title">Catatan Tambahan</div>
-                    <div class="inv-notes-content">
-                        ${settings.receipt_footer || 'Terima kasih telah mempercayakan perbaikan perangkat Anda kepada kami. Garansi servis berlaku selama 30 hari sejak tanggal pengambilan.'}
-                    </div>
-                </div>
                 <div class="inv-totals-box">
                     <table class="inv-totals-table">
                         <tr>

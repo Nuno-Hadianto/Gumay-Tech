@@ -1,4 +1,4 @@
-import{An as e,At as t,B as n,Dn as r,En as i,Gn as a,H as o,In as s,M as c,On as l,Pn as u,Q as d,R as f,Wn as p,Zn as m,_n as h,cn as g,ct as _,dn as v,er as y,fn as b,hn as x,mn as S,nn as C,r as w,rr as T,sn as E,tr as D,un as O,v as k,vn as A,vt as ee,wt as j,yn as M}from"./_plugin-vue_export-helper-_HKR-Qw9.js";import{d as te,i as N,n as P,r as ne,t as F,u as re}from"./index-BHunkE-z.js";import{i as ie,r as ae,s as I}from"./validators-FdmxP-r6.js";import{n as L,t as R}from"./SettingsService-H2TdGcfb.js";import{n as oe,t as se}from"./CustomSelect-CrSkiy1A.js";import{n as ce,t as z}from"./PartService-ursjyjw6.js";import{a as le,i as B,n as V,r as H,t as U}from"./types-Ctk1Bes1.js";var W,G,K,ue=T((()=>{W=(e,t,n)=>(e||={},`
+import{An as e,At as t,B as n,Dn as r,En as i,Gn as a,H as o,In as s,M as c,On as l,Pn as u,Q as d,R as f,Wn as p,Zn as m,_n as h,cn as g,ct as _,dn as v,er as y,fn as b,hn as x,mn as S,nn as C,r as w,rr as T,sn as E,tr as D,un as O,v as k,vn as A,vt as ee,wt as j,yn as M}from"./_plugin-vue_export-helper-_HKR-Qw9.js";import{d as te,i as N,n as P,r as ne,t as F,u as re}from"./index-pI9Nu07Y.js";import{i as ie,r as ae,s as I}from"./validators-FdmxP-r6.js";import{n as L,t as R}from"./SettingsService-H2TdGcfb.js";import{n as oe,t as se}from"./CustomSelect-CrSkiy1A.js";import{n as ce,t as z}from"./PartService-ursjyjw6.js";import{a as le,i as B,n as V,r as H,t as U}from"./types-Ctk1Bes1.js";var W,G,K,ue=T((()=>{W=(e,t,n)=>(e||={},`
         <div class="print-nota nota-wrapper">
             <!-- Header -->
             <div class="nota-header">
@@ -128,12 +128,6 @@ import{An as e,At as t,B as n,Dn as r,En as i,Gn as a,H as o,In as s,M as c,On a
             
             <!-- Summary & Totals -->
             <div class="inv-summary-row">
-                <div class="inv-notes-box">
-                    <div class="inv-notes-title">Catatan Tambahan</div>
-                    <div class="inv-notes-content">
-                        ${e.receipt_footer||`Terima kasih telah mempercayakan perbaikan perangkat Anda kepada kami. Garansi servis berlaku selama 30 hari sejak tanggal pengambilan.`}
-                    </div>
-                </div>
                 <div class="inv-totals-box">
                     <table class="inv-totals-table">
                         <tr>
