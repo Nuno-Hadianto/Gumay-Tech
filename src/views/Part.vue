@@ -1,5 +1,5 @@
 <template>
-  <div class="view-section" style="position: relative;">
+  <div class="view-section" style="position: relative">
     <div class="action-bar-container">
       <SearchBar
         v-model="searchQuery"
@@ -7,21 +7,14 @@
         placeholder="Cari item di katalog (Kode / Nama)..."
       />
       <div class="action-buttons">
-        <select
-          v-model="sortBy"
-          @change="loadParts(1)"
-          class="form-control sort-select"
-        >
+        <select v-model="sortBy" @change="loadParts(1)" class="form-control sort-select">
           <option value="name_asc">Urutan: Nama (A-Z)</option>
           <option value="name_desc">Urutan: Nama (Z-A)</option>
           <option value="id_desc">Urutan: Terbaru Ditambah</option>
           <option value="id_asc">Urutan: Terlama Ditambah</option>
         </select>
 
-        <button
-          @click="openAddModal"
-          class="btn btn-primary add-btn"
-        >
+        <button @click="openAddModal" class="btn btn-primary add-btn">
           <Plus :size="18" /> Tambah Item
         </button>
       </div>
@@ -57,7 +50,17 @@
             <td>{{ p.category || '-' }}</td>
             <td>{{ formatCurrency(p.buy_price) }}</td>
             <td>{{ formatCurrency(p.sell_price) }}</td>
-            <td :style="{ color: p.sell_price > p.buy_price ? '#10b981' : (p.sell_price < p.buy_price ? '#ef4444' : 'inherit'), fontWeight: 'bold' }">
+            <td
+              :style="{
+                color:
+                  p.sell_price > p.buy_price
+                    ? '#10b981'
+                    : p.sell_price < p.buy_price
+                      ? '#ef4444'
+                      : 'inherit',
+                fontWeight: 'bold'
+              }"
+            >
               {{ formatCurrency((p.sell_price || 0) - (p.buy_price || 0)) }}
               <span v-if="p.buy_price > 0" class="margin-percent">
                 ({{ Math.round(((p.sell_price - p.buy_price) / p.buy_price) * 100) }}%)
@@ -65,16 +68,10 @@
             </td>
             <td>
               <div class="action-cell">
-                <button
-                  class="btn btn-secondary btn-sm action-btn"
-                  @click="editPart(p)"
-                >
+                <button class="btn btn-secondary btn-sm action-btn" @click="editPart(p)">
                   <Edit :size="14" /> Edit
                 </button>
-                <button
-                  class="btn btn-danger btn-sm action-btn"
-                  @click="deletePart(p.id)"
-                >
+                <button class="btn btn-danger btn-sm action-btn" @click="deletePart(p.id)">
                   <Trash2 :size="14" /> Hapus
                 </button>
               </div>
@@ -84,11 +81,7 @@
       </table>
     </div>
 
-    <Pagination
-      :current-page="currentPage"
-      :total-pages="totalPages"
-      @change="loadParts"
-    />
+    <Pagination :current-page="currentPage" :total-pages="totalPages" @change="loadParts" />
 
     <PartFormModal
       :is-open="isModalOpen"
@@ -224,6 +217,7 @@ const savePart = async (data: {
     }
     isModalOpen.value = false
     cacheStore.invalidatePartCache()
+    cacheStore.invalidateDashboardCache()
     loadParts(currentPage.value)
     Toast.fire({
       icon: 'success',
@@ -248,6 +242,7 @@ const deletePart = async (id: number) => {
       await PartService.delete(id)
       Toast.fire({ icon: 'success', title: 'Data berhasil dihapus.' })
       cacheStore.invalidatePartCache()
+      cacheStore.invalidateDashboardCache()
       loadParts(currentPage.value)
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : String(error)

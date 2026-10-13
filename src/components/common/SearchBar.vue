@@ -14,12 +14,15 @@
 <script setup lang="ts">
 import { Search } from 'lucide-vue-next'
 
-withDefaults(defineProps<{
-  modelValue: string
-  placeholder?: string
-}>(), {
-  placeholder: 'Cari...'
-})
+withDefaults(
+  defineProps<{
+    modelValue: string
+    placeholder?: string
+  }>(),
+  {
+    placeholder: 'Cari...'
+  }
+)
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void

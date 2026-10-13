@@ -1,5 +1,8 @@
 export const ReportService = {
-  async getIncomeReport(start: string, end: string): Promise<{ total_income: number; transaction_count: number }> {
+  async getIncomeReport(
+    start: string,
+    end: string
+  ): Promise<{ total_income: number; transaction_count: number }> {
     if (!window.api?.getIncomeReport) throw new Error('API not available')
     return window.api.getIncomeReport(start, end)
   },
@@ -14,10 +17,13 @@ export const ReportService = {
     return window.api.getTopSpareparts(start, end)
   },
 
-  async getReportBreakdown(start: string, end: string): Promise<{
-    jasa: { omset: number; modal: number };
-    sparepart: { omset: number; modal: number };
-    lainnya: { omset: number; modal: number };
+  async getReportBreakdown(
+    start: string,
+    end: string
+  ): Promise<{
+    jasa: { omset: number; modal: number }
+    sparepart: { omset: number; modal: number }
+    lainnya: { omset: number; modal: number }
   }> {
     if (!window.api?.getReportBreakdown) throw new Error('API not available')
     return window.api.getReportBreakdown(start, end)

@@ -1,5 +1,5 @@
 <template>
-  <div class="view-section" style="position: relative;">
+  <div class="view-section" style="position: relative">
     <div class="action-bar-container">
       <SearchBar
         v-model="searchQuery"
@@ -7,24 +7,17 @@
         placeholder="Cari perangkat (Merek / Model / SN)..."
       />
       <div class="action-buttons">
-        <select
-          v-model="sortBy"
-          @change="loadDevices()"
-          class="form-control sort-select"
-        >
+        <select v-model="sortBy" @change="loadDevices()" class="form-control sort-select">
           <option value="id_desc">Urutan: Terbaru</option>
           <option value="id_asc">Urutan: Terlama</option>
         </select>
 
-        <button
-          @click="openAddModal"
-          class="btn btn-primary add-btn"
-        >
+        <button @click="openAddModal" class="btn btn-primary add-btn">
           <Plus :size="18" /> Tambah Perangkat
         </button>
       </div>
     </div>
-    
+
     <div class="table-container">
       <table class="data-table">
         <thead>
@@ -64,24 +57,27 @@
               <div style="font-size: 0.85em; opacity: 0.8">Warna: {{ d.color || '-' }}</div>
             </td>
             <td>
-
-
-              <div v-if="d.notes" style="font-size: 0.85em; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;" :title="d.notes">
+              <div
+                v-if="d.notes"
+                style="
+                  font-size: 0.85em;
+                  max-width: 200px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  margin-top: 2px;
+                "
+                :title="d.notes"
+              >
                 {{ d.notes }}
               </div>
             </td>
             <td>
               <div class="action-cell">
-                <button
-                  class="btn btn-secondary btn-sm action-btn"
-                  @click="editDevice(d)"
-                >
+                <button class="btn btn-secondary btn-sm action-btn" @click="editDevice(d)">
                   <Edit :size="14" /> Edit
                 </button>
-                <button
-                  class="btn btn-danger btn-sm action-btn"
-                  @click="deleteDevice(d.id)"
-                >
+                <button class="btn btn-danger btn-sm action-btn" @click="deleteDevice(d.id)">
                   <Trash2 :size="14" /> Hapus
                 </button>
               </div>
@@ -91,11 +87,7 @@
       </table>
     </div>
 
-    <Pagination
-      :current-page="currentPage"
-      :total-pages="totalPages"
-      @change="loadDevices"
-    />
+    <Pagination :current-page="currentPage" :total-pages="totalPages" @change="loadDevices" />
 
     <DeviceFormModal
       :is-open="isModalOpen"
@@ -224,6 +216,7 @@ const saveDevice = async (data: Omit<Device, 'id'>) => {
     }
     isModalOpen.value = false
     cacheStore.invalidateDeviceCache()
+    cacheStore.invalidateServiceCache()
     loadDevices(currentPage.value)
     Toast.fire({
       icon: 'success',
@@ -248,6 +241,7 @@ const deleteDevice = async (id: number) => {
       await DeviceService.delete(id)
       Toast.fire({ icon: 'success', title: 'Perangkat berhasil dihapus.' })
       cacheStore.invalidateDeviceCache()
+      cacheStore.invalidateServiceCache()
       loadDevices(currentPage.value)
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : String(error)

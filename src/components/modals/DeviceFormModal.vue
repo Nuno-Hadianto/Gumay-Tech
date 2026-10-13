@@ -16,7 +16,9 @@
                 placeholder="-- Pilih Pelanggan --"
                 @change="validateField('customer_id', form.customer_id)"
               />
-              <span v-if="formErrors.customer_id" class="text-danger error-text">{{ formErrors.customer_id }}</span>
+              <span v-if="formErrors.customer_id" class="text-danger error-text">{{
+                formErrors.customer_id
+              }}</span>
             </div>
             <div class="form-row">
               <div class="form-group flex-1">
@@ -28,7 +30,9 @@
                   :class="['form-control', { 'border-danger': formErrors.brand }]"
                   placeholder="Misal: Samsung, Asus"
                 />
-                <span v-if="formErrors.brand" class="text-danger error-text">{{ formErrors.brand }}</span>
+                <span v-if="formErrors.brand" class="text-danger error-text">{{
+                  formErrors.brand
+                }}</span>
               </div>
               <div class="form-group flex-1">
                 <label>Model</label>
@@ -39,7 +43,9 @@
                   :class="['form-control', { 'border-danger': formErrors.model }]"
                   placeholder="Misal: Galaxy S21"
                 />
-                <span v-if="formErrors.model" class="text-danger error-text">{{ formErrors.model }}</span>
+                <span v-if="formErrors.model" class="text-danger error-text">{{
+                  formErrors.model
+                }}</span>
               </div>
             </div>
             <div class="form-row">
@@ -53,7 +59,9 @@
                   :class="['form-control', { 'border-danger': formErrors.device_type }]"
                   placeholder="Misal: Smartphone, Laptop"
                 />
-                <span v-if="formErrors.device_type" class="text-danger error-text">{{ formErrors.device_type }}</span>
+                <span v-if="formErrors.device_type" class="text-danger error-text">{{
+                  formErrors.device_type
+                }}</span>
               </div>
               <div class="form-group flex-1">
                 <label>Serial Number (SN)</label>
@@ -64,10 +72,12 @@
                   :class="['form-control', { 'border-danger': formErrors.serial_number }]"
                   placeholder="Opsional"
                 />
-                <span v-if="formErrors.serial_number" class="text-danger error-text">{{ formErrors.serial_number }}</span>
+                <span v-if="formErrors.serial_number" class="text-danger error-text">{{
+                  formErrors.serial_number
+                }}</span>
               </div>
             </div>
-            
+
             <div class="form-group">
               <label>Warna</label>
               <input
@@ -77,7 +87,9 @@
                 :class="['form-control', { 'border-danger': formErrors.color }]"
                 placeholder="Misal: Hitam, Putih"
               />
-              <span v-if="formErrors.color" class="text-danger error-text">{{ formErrors.color }}</span>
+              <span v-if="formErrors.color" class="text-danger error-text">{{
+                formErrors.color
+              }}</span>
             </div>
 
             <div class="form-group">
@@ -88,15 +100,13 @@
                 :class="['form-control textarea-resize', { 'border-danger': formErrors.notes }]"
                 placeholder="Catatan tambahan (opsional)"
               ></textarea>
-              <span v-if="formErrors.notes" class="text-danger error-text">{{ formErrors.notes }}</span>
+              <span v-if="formErrors.notes" class="text-danger error-text">{{
+                formErrors.notes
+              }}</span>
             </div>
 
             <div class="modal-footer action-footer">
-              <button
-                type="button"
-                class="btn btn-cancel"
-                @click="close"
-              >
+              <button type="button" class="btn btn-cancel" @click="close">
                 <X :size="16" class="icon-spacing" /> Batal
               </button>
               <button type="submit" class="btn btn-primary" :disabled="hasErrors">
@@ -135,19 +145,22 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'save', data: {
-    customer_id: number
-    device_type: string
-    brand: string
-    model: string
-    serial_number: string
-    color: string
-    notes: string
-  }): void
+  (
+    e: 'save',
+    data: {
+      customer_id: number
+      device_type: string
+      brand: string
+      model: string
+      serial_number: string
+      color: string
+      notes: string
+    }
+  ): void
 }>()
 
 const customerOptions = computed(() => {
-  return props.customers.map(c => ({
+  return props.customers.map((c) => ({
     value: c.id,
     label: `${c.name} (${c.phone || '-'})`
   }))
@@ -166,7 +179,7 @@ const form = reactive({
 const formErrors = reactive<Record<string, string>>({})
 
 const hasErrors = computed(() => {
-  return Object.values(formErrors).some(err => err !== '')
+  return Object.values(formErrors).some((err) => err !== '')
 })
 
 const validateField = (field: string, value: unknown) => {
@@ -187,27 +200,30 @@ const validateField = (field: string, value: unknown) => {
 const validateAll = () => {
   let isValid = true
   const fields = ['customer_id', 'device_type', 'brand', 'model', 'serial_number', 'color', 'notes']
-  fields.forEach(field => {
+  fields.forEach((field) => {
     validateField(field, form[field as keyof typeof form])
     if (formErrors[field]) isValid = false
   })
   return isValid
 }
 
-watch(() => props.isOpen, (newVal) => {
-  if (newVal) {
-    form.customer_id = props.initialData?.customer_id || ''
-    form.device_type = props.initialData?.device_type || 'Laptop'
-    form.brand = props.initialData?.brand || ''
-    form.model = props.initialData?.model || ''
-    form.serial_number = props.initialData?.serial_number || ''
-    form.color = props.initialData?.color || ''
-    form.notes = props.initialData?.notes || ''
-    
-    // Reset errors
-    Object.keys(formErrors).forEach(key => formErrors[key] = '')
+watch(
+  () => props.isOpen,
+  (newVal) => {
+    if (newVal) {
+      form.customer_id = props.initialData?.customer_id || ''
+      form.device_type = props.initialData?.device_type || 'Laptop'
+      form.brand = props.initialData?.brand || ''
+      form.model = props.initialData?.model || ''
+      form.serial_number = props.initialData?.serial_number || ''
+      form.color = props.initialData?.color || ''
+      form.notes = props.initialData?.notes || ''
+
+      // Reset errors
+      Object.keys(formErrors).forEach((key) => (formErrors[key] = ''))
+    }
   }
-})
+)
 
 const close = () => {
   emit('close')
@@ -215,10 +231,10 @@ const close = () => {
 
 const submitForm = () => {
   if (!validateAll()) return
-  
-  emit('save', { 
-    ...form, 
-    customer_id: Number(form.customer_id) 
+
+  emit('save', {
+    ...form,
+    customer_id: Number(form.customer_id)
   })
 }
 </script>

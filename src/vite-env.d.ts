@@ -65,18 +65,28 @@ declare global {
       ) => Promise<number>
       updateServiceDetails: (id: number, data: Partial<ServiceOrder>) => Promise<number>
       deleteService: (id: number) => Promise<number>
-      checkWarranty: (deviceId: number) => Promise<{ status: string; days_left?: number; message?: string; warranty_end_date?: string; ticket_number?: string }>
-
-
+      checkWarranty: (
+        deviceId: number
+      ) => Promise<{
+        status: string
+        days_left?: number
+        message?: string
+        warranty_end_date?: string
+        ticket_number?: string
+      }>
 
       // Parts
-      getParts: (searchQuery: string, page: number, limit: number, sortBy?: string) => Promise<{ data: Part[]; total: number }>
+      getParts: (
+        searchQuery: string,
+        page: number,
+        limit: number,
+        sortBy?: string
+      ) => Promise<{ data: Part[]; total: number }>
       getPart: (id: number) => Promise<Part>
       addPart: (data: Omit<Part, 'id'>) => Promise<number>
       updatePart: (id: number, data: Partial<Part>) => Promise<number>
 
       deletePart: (id: number) => Promise<number>
-
 
       // Service Items
       getServiceItems: (serviceId: number) => Promise<ServiceItem[]>
@@ -93,31 +103,47 @@ declare global {
       updateSettings: (data: Settings) => Promise<number>
 
       // Reports
-      getIncomeReport: (start: string, end: string) => Promise<{ total_income: number; transaction_count: number }>
+      getIncomeReport: (
+        start: string,
+        end: string
+      ) => Promise<{ total_income: number; transaction_count: number }>
       getCompletedServices: (start: string, end: string) => Promise<Record<string, unknown>[]>
       getTopSpareparts: (start: string, end: string) => Promise<Record<string, unknown>[]>
-      getReportBreakdown: (start: string, end: string) => Promise<{
-        jasa: { omset: number; modal: number };
-        sparepart: { omset: number; modal: number };
-        lainnya: { omset: number; modal: number };
+      getReportBreakdown: (
+        start: string,
+        end: string
+      ) => Promise<{
+        jasa: { omset: number; modal: number }
+        sparepart: { omset: number; modal: number }
+        lainnya: { omset: number; modal: number }
       }>
-
 
       // Backup & Utilities
       backupDatabase: () => Promise<boolean>
       restoreDatabase: () => Promise<boolean>
       askAi: (prompt: string) => Promise<{ success: boolean; result?: string; error?: string }>
       selectDirectory: () => Promise<string | null>
-      exportPdf: (data: { html: string; filename: string }) => Promise<{ success: boolean; filePath?: string; canceled?: boolean; error?: string }>
+      exportPdf: (data: {
+        html: string
+        filename: string
+      }) => Promise<{ success: boolean; filePath?: string; canceled?: boolean; error?: string }>
       openExternalUrl: (url: string) => Promise<boolean>
       getLogoBase64: () => Promise<string | null>
       printPreview: (options?: Record<string, unknown>) => Promise<boolean>
 
       // Keranjang Sampah (Recycle Bin)
       getDeletedItems: () => Promise<{ success: boolean; data?: RecycleBinItem[]; error?: string }>
-      restoreItem: (id: number, type: 'customer' | 'device' | 'service' | 'part') => Promise<{ success: boolean; message?: string; error?: string }>
-      hardDeleteItem: (id: number, type: 'customer' | 'device' | 'service' | 'part') => Promise<{ success: boolean; message?: string; error?: string }>
-      onSystemEvent: (callback: (event: unknown, data: import('../shared/types').SystemEvent) => void) => () => void
+      restoreItem: (
+        id: number,
+        type: 'customer' | 'device' | 'service' | 'part'
+      ) => Promise<{ success: boolean; message?: string; error?: string }>
+      hardDeleteItem: (
+        id: number,
+        type: 'customer' | 'device' | 'service' | 'part'
+      ) => Promise<{ success: boolean; message?: string; error?: string }>
+      onSystemEvent: (
+        callback: (event: unknown, data: import('../shared/types').SystemEvent) => void
+      ) => () => void
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Swal: any

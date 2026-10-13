@@ -16,7 +16,9 @@
                 placeholder="-- Pilih Pelanggan --"
                 @change="onCustomerChange"
               />
-              <span v-if="formErrors.customer_id" class="text-danger error-text">{{ formErrors.customer_id }}</span>
+              <span v-if="formErrors.customer_id" class="text-danger error-text">{{
+                formErrors.customer_id
+              }}</span>
             </div>
             <div class="form-group">
               <label>Perangkat</label>
@@ -27,7 +29,9 @@
                 @change="onDeviceChange"
                 :disabled="!form.customer_id"
               />
-              <span v-if="formErrors.device_id" class="text-danger error-text">{{ formErrors.device_id }}</span>
+              <span v-if="formErrors.device_id" class="text-danger error-text">{{
+                formErrors.device_id
+              }}</span>
             </div>
             <div class="form-group">
               <label>Estimasi Selesai (Opsional)</label>
@@ -38,7 +42,9 @@
                 :min="minDate"
                 :class="['form-control', { 'border-danger': formErrors.estimated_completion_date }]"
               />
-              <span v-if="formErrors.estimated_completion_date" class="text-danger error-text">{{ formErrors.estimated_completion_date }}</span>
+              <span v-if="formErrors.estimated_completion_date" class="text-danger error-text">{{
+                formErrors.estimated_completion_date
+              }}</span>
             </div>
             <div class="form-group">
               <label>Keluhan / Kerusakan (Diisi berdasarkan laporan pelanggan)</label>
@@ -47,10 +53,15 @@
                 @input="validateField('customer_complaint', form.customer_complaint)"
                 rows="3"
                 required
-                :class="['form-control textarea-resize', { 'border-danger': formErrors.customer_complaint }]"
+                :class="[
+                  'form-control textarea-resize',
+                  { 'border-danger': formErrors.customer_complaint }
+                ]"
                 placeholder="Contoh: Mati total, layar bergaris..."
               ></textarea>
-              <span v-if="formErrors.customer_complaint" class="text-danger error-text">{{ formErrors.customer_complaint }}</span>
+              <span v-if="formErrors.customer_complaint" class="text-danger error-text">{{
+                formErrors.customer_complaint
+              }}</span>
             </div>
             <div class="form-group">
               <label>Kelengkapan (Opsional)</label>
@@ -58,10 +69,15 @@
                 v-model="form.accessories"
                 @input="validateField('accessories', form.accessories)"
                 rows="2"
-                :class="['form-control textarea-resize', { 'border-danger': formErrors.accessories }]"
+                :class="[
+                  'form-control textarea-resize',
+                  { 'border-danger': formErrors.accessories }
+                ]"
                 placeholder="Contoh: Bawa charger, tas, dus..."
               ></textarea>
-              <span v-if="formErrors.accessories" class="text-danger error-text">{{ formErrors.accessories }}</span>
+              <span v-if="formErrors.accessories" class="text-danger error-text">{{
+                formErrors.accessories
+              }}</span>
             </div>
             <div class="form-group">
               <label>Kondisi Fisik (Opsional)</label>
@@ -69,17 +85,18 @@
                 v-model="form.physical_condition"
                 @input="validateField('physical_condition', form.physical_condition)"
                 rows="2"
-                :class="['form-control textarea-resize', { 'border-danger': formErrors.physical_condition }]"
+                :class="[
+                  'form-control textarea-resize',
+                  { 'border-danger': formErrors.physical_condition }
+                ]"
                 placeholder="Contoh: Bodi bawah lecet pemakaian, layar gores..."
               ></textarea>
-              <span v-if="formErrors.physical_condition" class="text-danger error-text">{{ formErrors.physical_condition }}</span>
+              <span v-if="formErrors.physical_condition" class="text-danger error-text">{{
+                formErrors.physical_condition
+              }}</span>
             </div>
             <div class="modal-footer action-footer">
-              <button
-                type="button"
-                class="btn btn-cancel"
-                @click="close"
-              >
+              <button type="button" class="btn btn-cancel" @click="close">
                 <X :size="16" class="icon-spacing" /> Batal
               </button>
               <button type="submit" class="btn btn-primary" :disabled="hasErrors">
@@ -121,35 +138,38 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'save', data: {
-    customer_id: number
-    device_id: number
-    estimated_completion_date?: string
-    customer_complaint: string
-    physical_condition: string
-    accessories: string
-  }): void
+  (
+    e: 'save',
+    data: {
+      customer_id: number
+      device_id: number
+      estimated_completion_date?: string
+      customer_complaint: string
+      physical_condition: string
+      accessories: string
+    }
+  ): void
 }>()
 
 const customerDevices = ref<Device[]>([])
 
 const customerOptions = computed(() => {
-  return props.customers.map(c => ({
+  return props.customers.map((c) => ({
     value: c.id,
     label: `${c.name} (${c.phone || '-'})`
   }))
 })
 
 const deviceOptions = computed(() => {
-  return customerDevices.value.map(d => ({
+  return customerDevices.value.map((d) => ({
     value: d.id,
     label: `${d.brand || ''} ${d.model || ''} - ${d.device_type} (SN: ${d.serial_number || '-'})`
   }))
 })
 
 const minDate = computed(() => {
-  const today = new Date();
-  return today.toISOString().split('T')[0];
+  const today = new Date()
+  return today.toISOString().split('T')[0]
 })
 
 const form = reactive({
@@ -164,13 +184,16 @@ const form = reactive({
 const formErrors = reactive<Record<string, string>>({})
 
 const hasErrors = computed(() => {
-  return Object.values(formErrors).some(err => err !== '')
+  return Object.values(formErrors).some((err) => err !== '')
 })
 
 const validateField = (field: string, value: unknown) => {
   try {
-    const parsedValue = (field === 'customer_id' || field === 'device_id') ? Number(value) : value
-    const schema = ServiceOrderSchema.pick({ [field]: true } as Record<keyof typeof ServiceOrderSchema.shape, true>)
+    const parsedValue = field === 'customer_id' || field === 'device_id' ? Number(value) : value
+    const schema = ServiceOrderSchema.pick({ [field]: true } as Record<
+      keyof typeof ServiceOrderSchema.shape,
+      true
+    >)
     schema.parse({ [field]: parsedValue })
     formErrors[field] = ''
   } catch (error: unknown) {
@@ -182,33 +205,43 @@ const validateField = (field: string, value: unknown) => {
 
 const validateAll = () => {
   let isValid = true
-  const fields = ['customer_id', 'device_id', 'estimated_completion_date', 'customer_complaint', 'physical_condition', 'accessories']
-  fields.forEach(field => {
+  const fields = [
+    'customer_id',
+    'device_id',
+    'estimated_completion_date',
+    'customer_complaint',
+    'physical_condition',
+    'accessories'
+  ]
+  fields.forEach((field) => {
     validateField(field, form[field as keyof typeof form])
     if (formErrors[field]) isValid = false
   })
   return isValid
 }
 
-watch(() => props.isOpen, async (newVal) => {
-  if (newVal) {
-    form.customer_id = props.initialData?.customer_id || ''
-    form.device_id = props.initialData?.device_id || ''
-    form.estimated_completion_date = props.initialData?.estimated_completion_date || ''
-    form.customer_complaint = props.initialData?.customer_complaint || ''
-    form.physical_condition = props.initialData?.physical_condition || ''
-    form.accessories = props.initialData?.accessories || ''
-    
-    // Reset errors
-    Object.keys(formErrors).forEach(key => formErrors[key] = '')
+watch(
+  () => props.isOpen,
+  async (newVal) => {
+    if (newVal) {
+      form.customer_id = props.initialData?.customer_id || ''
+      form.device_id = props.initialData?.device_id || ''
+      form.estimated_completion_date = props.initialData?.estimated_completion_date || ''
+      form.customer_complaint = props.initialData?.customer_complaint || ''
+      form.physical_condition = props.initialData?.physical_condition || ''
+      form.accessories = props.initialData?.accessories || ''
 
-    if (form.customer_id) {
-      await loadCustomerDevices(Number(form.customer_id))
-    } else {
-      customerDevices.value = []
+      // Reset errors
+      Object.keys(formErrors).forEach((key) => (formErrors[key] = ''))
+
+      if (form.customer_id) {
+        await loadCustomerDevices(Number(form.customer_id))
+      } else {
+        customerDevices.value = []
+      }
     }
   }
-})
+)
 
 const loadCustomerDevices = async (customerId: number) => {
   try {

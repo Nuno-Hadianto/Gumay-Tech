@@ -1,7 +1,12 @@
 import type { Customer } from '../../shared/types'
 
 export const CustomerService = {
-  async getAll(searchQuery: string, page: number, limit: number, sortBy?: string): Promise<{ data: Customer[]; total: number; page: number }> {
+  async getAll(
+    searchQuery: string,
+    page: number,
+    limit: number,
+    sortBy?: string
+  ): Promise<{ data: Customer[]; total: number; page: number }> {
     if (!window.api?.getCustomers) throw new Error('API not available')
     return window.api.getCustomers(searchQuery, page, limit, sortBy)
   },

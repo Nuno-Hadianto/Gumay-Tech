@@ -6,12 +6,18 @@ export const RecycleBinService = {
     return window.api.getDeletedItems()
   },
 
-  async restoreItem(id: number, type: 'customer' | 'device' | 'service' | 'part'): Promise<{ success: boolean; message?: string; error?: string }> {
+  async restoreItem(
+    id: number,
+    type: 'customer' | 'device' | 'service' | 'part'
+  ): Promise<{ success: boolean; message?: string; error?: string }> {
     if (!window.api?.restoreItem) throw new Error('API not available')
     return window.api.restoreItem(id, type)
   },
 
-  async deletePermanent(id: number, type: 'customer' | 'device' | 'service' | 'part'): Promise<{ success: boolean; message?: string; error?: string }> {
+  async deletePermanent(
+    id: number,
+    type: 'customer' | 'device' | 'service' | 'part'
+  ): Promise<{ success: boolean; message?: string; error?: string }> {
     if (!window.api?.hardDeleteItem) throw new Error('API not available')
     return window.api.hardDeleteItem(id, type)
   }

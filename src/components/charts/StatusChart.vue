@@ -20,7 +20,7 @@ let chartInstance: Chart | null = null
 const themeStore = useThemeStore()
 const { isDark } = storeToRefs(themeStore)
 
-const getTextColor = () => isDark.value ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'
+const getTextColor = () => (isDark.value ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)')
 
 const renderChart = () => {
   if (chartInstance) chartInstance.destroy()
@@ -50,15 +50,15 @@ const renderChart = () => {
         easing: 'easeOutQuart'
       },
       plugins: {
-        legend: { 
-          position: 'bottom', 
-          labels: { 
+        legend: {
+          position: 'bottom',
+          labels: {
             color: getTextColor(),
             padding: 20,
             usePointStyle: true,
             font: { size: 13, weight: 'bold' },
             boxWidth: 10
-          } 
+          }
         }
       },
       layout: {
@@ -69,12 +69,22 @@ const renderChart = () => {
   })
 }
 
-watch(() => props.data, () => {
-  renderChart()
-}, { deep: true })
+watch(
+  () => props.data,
+  () => {
+    renderChart()
+  },
+  { deep: true }
+)
 
 watch(isDark, () => {
-  if (chartInstance && chartInstance.options && chartInstance.options.plugins && chartInstance.options.plugins.legend && chartInstance.options.plugins.legend.labels) {
+  if (
+    chartInstance &&
+    chartInstance.options &&
+    chartInstance.options.plugins &&
+    chartInstance.options.plugins.legend &&
+    chartInstance.options.plugins.legend.labels
+  ) {
     chartInstance.options.plugins.legend.labels.color = getTextColor()
     chartInstance.update()
   }

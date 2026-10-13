@@ -7,16 +7,18 @@ export const CustomerSchema = z.object({
   notes: z.string().optional().nullable()
 })
 
-export const SparepartSchema = z.object({
-  part_code: z.string().optional().nullable(),
-  name: z.string().min(1, 'Nama sparepart wajib diisi.').max(150, 'Nama terlalu panjang.'),
-  category: z.string().optional().nullable(),
-  buy_price: z.number().min(0, 'Harga beli tidak boleh negatif.').optional().default(0),
-  sell_price: z.number().min(0, 'Harga jual tidak boleh negatif.').optional().default(0)
-}).refine(data => data.sell_price >= data.buy_price, {
-  message: "Harga jual tidak boleh lebih kecil dari harga beli/modal.",
-  path: ["sell_price"]
-})
+export const SparepartSchema = z
+  .object({
+    part_code: z.string().optional().nullable(),
+    name: z.string().min(1, 'Nama sparepart wajib diisi.').max(150, 'Nama terlalu panjang.'),
+    category: z.string().optional().nullable(),
+    buy_price: z.number().min(0, 'Harga beli tidak boleh negatif.').optional().default(0),
+    sell_price: z.number().min(0, 'Harga jual tidak boleh negatif.').optional().default(0)
+  })
+  .refine((data) => data.sell_price >= data.buy_price, {
+    message: 'Harga jual tidak boleh lebih kecil dari harga beli/modal.',
+    path: ['sell_price']
+  })
 
 export const DeviceSchema = z.object({
   customer_id: z.number().int('ID Pelanggan tidak valid.'),
@@ -31,12 +33,19 @@ export const DeviceSchema = z.object({
 export const ServiceOrderSchema = z.object({
   customer_id: z.number().int('ID Pelanggan tidak valid.'),
   device_id: z.number().int('ID Perangkat tidak valid.'),
-  estimated_completion_date: z.string().optional().nullable().refine(val => {
-    if (!val) return true;
-    const inputDate = new Date(val).setHours(0,0,0,0);
-    const today = new Date().setHours(0,0,0,0);
-    return inputDate >= today;
-  }, { message: 'Estimasi selesai tidak boleh di masa lalu.' }),
+  estimated_completion_date: z
+    .string()
+    .optional()
+    .nullable()
+    .refine(
+      (val) => {
+        if (!val) return true
+        const inputDate = new Date(val).setHours(0, 0, 0, 0)
+        const today = new Date().setHours(0, 0, 0, 0)
+        return inputDate >= today
+      },
+      { message: 'Estimasi selesai tidak boleh di masa lalu.' }
+    ),
   customer_complaint: z.string().optional().nullable(),
   accessories: z.string().optional().nullable(),
   physical_condition: z.string().optional().nullable(),
@@ -63,9 +72,6 @@ export const PaymentSchema = z.object({
   payment_method: z.string().min(1, 'Metode pembayaran wajib diisi.'),
   notes: z.string().optional().nullable()
 })
-
-
-
 
 export const validateData = <T>(schema: z.ZodSchema<T>, data: unknown): T => {
   try {

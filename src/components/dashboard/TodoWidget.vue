@@ -1,16 +1,16 @@
 <template>
   <div class="card warning-card">
     <h2 class="warning-title text-primary">
-      <ClipboardList style="width: 24px; height: 24px;" /> To-Do
+      <ClipboardList style="width: 24px; height: 24px" /> To-Do
     </h2>
     <div class="table-container table-scroll">
       <table class="data-table">
         <thead>
           <tr>
-            <th style="width: 20%;">No. Tiket</th>
-            <th style="width: 45%;">Keterangan</th>
-            <th style="width: 20%;">Status</th>
-            <th style="width: 15%;">Aksi</th>
+            <th style="width: 20%">No. Tiket</th>
+            <th style="width: 45%">Keterangan</th>
+            <th style="width: 20%">Status</th>
+            <th style="width: 15%">Aksi</th>
           </tr>
         </thead>
         <tbody>

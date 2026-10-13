@@ -53,7 +53,8 @@
       <!-- Kiri Atas (2fr): Tren Pendapatan -->
       <div class="card chart-container">
         <h2 class="chart-title">
-          <LineChart style="width: 24px; height: 24px;" class="text-primary" /> Tren Pendapatan (6 Bulan)
+          <LineChart style="width: 24px; height: 24px" class="text-primary" /> Tren Pendapatan (6
+          Bulan)
         </h2>
         <IncomeChart v-if="stats.chartData" :data="stats.chartData" />
       </div>
@@ -61,24 +62,20 @@
       <!-- Kanan Atas (1fr): Distribusi Status -->
       <div class="card chart-container">
         <h2 class="chart-title">
-          <PieChart style="width: 24px; height: 24px;" class="text-info" /> Distribusi Status Servis
+          <PieChart style="width: 24px; height: 24px" class="text-info" /> Distribusi Status Servis
         </h2>
         <StatusChart v-if="stats.serviceStatusChart" :data="stats.serviceStatusChart" />
       </div>
 
       <!-- Bawah: Todo Teknisi (Full Width) -->
-      <TodoWidget 
-        :items="stats.todoItems" 
-        :isLoading="isLoading" 
-        style="grid-column: 1 / -1;"
-      />
+      <TodoWidget :items="stats.todoItems" :isLoading="isLoading" style="grid-column: 1 / -1" />
 
       <!-- Paling Bawah: Peringatan Follow-up (Full Width) -->
       <AbandonedWidget
         :items="stats.abandonedServices"
         :isLoading="isLoading"
         @send-wa="sendWaDashboard"
-        style="grid-column: 1 / -1;"
+        style="grid-column: 1 / -1"
       />
     </div>
   </div>
@@ -87,7 +84,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-import { Wrench, Hourglass, CheckCircle, Wallet, TrendingUp, LineChart, PieChart } from 'lucide-vue-next'
+import {
+  Wrench,
+  Hourglass,
+  CheckCircle,
+  Wallet,
+  TrendingUp,
+  LineChart,
+  PieChart
+} from 'lucide-vue-next'
 import StatCard from '@/components/StatCard.vue'
 import TodoWidget from '@/components/dashboard/TodoWidget.vue'
 import AbandonedWidget from '@/components/dashboard/AbandonedWidget.vue'

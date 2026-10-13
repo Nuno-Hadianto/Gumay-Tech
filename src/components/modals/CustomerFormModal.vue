@@ -42,18 +42,14 @@
                 rows="3"
                 placeholder="Alamat lengkap"
                 class="form-control"
-                style="resize: vertical;"
+                style="resize: vertical"
                 :class="{ 'is-invalid border-danger': formErrors.address }"
               ></textarea>
               <small v-if="formErrors.address" class="error-text">{{ formErrors.address }}</small>
             </div>
 
             <div class="modal-footer action-footer">
-              <button
-                type="button"
-                class="btn btn-cancel"
-                @click="close"
-              >
+              <button type="button" class="btn btn-cancel" @click="close">
                 <X :size="16" class="icon-spacing" /> Batal
               </button>
               <button type="submit" class="btn btn-primary" :disabled="hasErrors">
@@ -99,7 +95,7 @@ const form = reactive({
 const formErrors = reactive<Record<string, string>>({})
 
 const hasErrors = computed(() => {
-  return Object.values(formErrors).some(err => err !== '')
+  return Object.values(formErrors).some((err) => err !== '')
 })
 
 const validateField = (field: string, value: unknown) => {
@@ -117,22 +113,25 @@ const validateField = (field: string, value: unknown) => {
 const validateAll = () => {
   let isValid = true
   const fields = ['name', 'phone', 'address', 'notes']
-  fields.forEach(field => {
+  fields.forEach((field) => {
     validateField(field, form[field as keyof typeof form])
     if (formErrors[field]) isValid = false
   })
   return isValid
 }
 
-watch(() => props.isOpen, (newVal) => {
-  if (newVal) {
-    Object.keys(formErrors).forEach(key => formErrors[key] = '')
-    form.name = props.initialData?.name || ''
-    form.phone = props.initialData?.phone || ''
-    form.address = props.initialData?.address || ''
-    form.notes = props.initialData?.notes || ''
+watch(
+  () => props.isOpen,
+  (newVal) => {
+    if (newVal) {
+      Object.keys(formErrors).forEach((key) => (formErrors[key] = ''))
+      form.name = props.initialData?.name || ''
+      form.phone = props.initialData?.phone || ''
+      form.address = props.initialData?.address || ''
+      form.notes = props.initialData?.notes || ''
+    }
   }
-})
+)
 
 const close = () => {
   emit('close')

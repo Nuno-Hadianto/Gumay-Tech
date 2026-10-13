@@ -20,8 +20,8 @@ let chartInstance: Chart | null = null
 const themeStore = useThemeStore()
 const { isDark } = storeToRefs(themeStore)
 
-const getTextColor = () => isDark.value ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'
-const getGridColor = () => isDark.value ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'
+const getTextColor = () => (isDark.value ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)')
+const getGridColor = () => (isDark.value ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)')
 
 const renderChart = () => {
   if (chartInstance) chartInstance.destroy()
@@ -67,9 +67,13 @@ const renderChart = () => {
   })
 }
 
-watch(() => props.data, () => {
-  renderChart()
-}, { deep: true })
+watch(
+  () => props.data,
+  () => {
+    renderChart()
+  },
+  { deep: true }
+)
 
 watch(isDark, () => {
   if (chartInstance && chartInstance.options && chartInstance.options.scales) {

@@ -2,7 +2,13 @@ import type { ServiceOrder, ServiceHistory, ServiceItem, Payment } from '../../s
 
 export const ServiceOrderService = {
   // Service Order Core
-  async getAll(searchQuery: string, page: number, limit: number, technicianFilter?: string, sortBy?: string): Promise<{ data: ServiceOrder[]; total: number; page: number }> {
+  async getAll(
+    searchQuery: string,
+    page: number,
+    limit: number,
+    technicianFilter?: string,
+    sortBy?: string
+  ): Promise<{ data: ServiceOrder[]; total: number; page: number }> {
     if (!window.api?.getServices) throw new Error('API not available')
     return window.api.getServices(searchQuery, page, limit, technicianFilter, sortBy)
   },
@@ -27,7 +33,12 @@ export const ServiceOrderService = {
     return window.api.addService(data)
   },
 
-  async updateStatus(id: number, status: string, notes: string, warrantyDays?: number): Promise<number> {
+  async updateStatus(
+    id: number,
+    status: string,
+    notes: string,
+    warrantyDays?: number
+  ): Promise<number> {
     if (!window.api?.updateServiceStatus) throw new Error('API not available')
     return window.api.updateServiceStatus(id, status, notes, warrantyDays)
   },
@@ -42,7 +53,15 @@ export const ServiceOrderService = {
     return window.api.deleteService(id)
   },
 
-  async checkWarranty(deviceId: number): Promise<{ status: string; days_left?: number; message?: string; warranty_end_date?: string; ticket_number?: string }> {
+  async checkWarranty(
+    deviceId: number
+  ): Promise<{
+    status: string
+    days_left?: number
+    message?: string
+    warranty_end_date?: string
+    ticket_number?: string
+  }> {
     if (!window.api?.checkWarranty) throw new Error('API not available')
     return window.api.checkWarranty(deviceId)
   },

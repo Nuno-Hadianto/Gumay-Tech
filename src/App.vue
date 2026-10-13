@@ -15,8 +15,6 @@
         </router-view>
       </div>
     </main>
-
-
   </div>
 
   <div id="print-area"></div>
@@ -49,8 +47,6 @@ const handleGlobalKeydown = async (e: KeyboardEvent) => {
   }
 }
 
-
-
 const pageTitle = computed<string>(() => {
   return (route.meta.title as string) || 'nuNox_servis'
 })
@@ -61,15 +57,17 @@ onMounted(() => {
   }
 
   if (window.api && window.api.onSystemEvent) {
-    const cleanup = window.api.onSystemEvent((_e: unknown, data: import('../shared/types').SystemEvent) => {
-      if (data && data.type === 'toast') {
-        Toast.fire({
-          icon: data.level,
-          title: data.message
-        })
+    const cleanup = window.api.onSystemEvent(
+      (_e: unknown, data: import('../shared/types').SystemEvent) => {
+        if (data && data.type === 'toast') {
+          Toast.fire({
+            icon: data.level,
+            title: data.message
+          })
+        }
       }
-    })
-    
+    )
+
     onUnmounted(() => {
       cleanup()
     })
@@ -79,13 +77,12 @@ onMounted(() => {
 
   themeStore.initTheme()
   loadGlobalSettings()
-
 })
 
 const loadGlobalSettings = async () => {
   if (window.api && window.api.getSettings) {
     try {
-      const settings = await window.api.getSettings() as Settings
+      const settings = (await window.api.getSettings()) as Settings
       if (settings && settings.primary_color) {
         document.documentElement.style.setProperty('--primary', settings.primary_color)
       }
@@ -98,9 +95,6 @@ const loadGlobalSettings = async () => {
 onUnmounted(() => {
   window.removeEventListener('keydown', handleGlobalKeydown)
 })
-
-
-
 </script>
 
 <style>
@@ -119,6 +113,4 @@ onUnmounted(() => {
   opacity: 0;
   transform: translateX(15px);
 }
-
-
 </style>

@@ -61,22 +61,23 @@
           <p><strong>SN:</strong> {{ service.serial_number || '-' }}</p>
         </div>
       </div>
-      <div
-        style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color)"
-      >
-        <p style="white-space: pre-wrap; margin-bottom: 5px;">
+      <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color)">
+        <p style="white-space: pre-wrap; margin-bottom: 5px">
           <strong>Keluhan: </strong>
           <span style="color: #ef4444; font-weight: 500">{{ parsedComplaint }}</span>
         </p>
-        <p v-if="service.accessories" style="white-space: pre-wrap; margin-top: 8px;">
+        <p v-if="service.accessories" style="white-space: pre-wrap; margin-top: 8px">
           <strong>Kelengkapan: </strong>
           <span style="color: #10b981; font-weight: 500">{{ service.accessories }}</span>
         </p>
-        <p v-if="service.physical_condition" style="white-space: pre-wrap; margin-top: 8px;">
+        <p v-if="service.physical_condition" style="white-space: pre-wrap; margin-top: 8px">
           <strong>Kondisi Fisik: </strong>
           <span style="color: #d97706; font-weight: 500">{{ service.physical_condition }}</span>
         </p>
-        <p v-if="!service.accessories && !service.physical_condition && legacyPhysical" style="white-space: pre-wrap; margin-top: 8px;">
+        <p
+          v-if="!service.accessories && !service.physical_condition && legacyPhysical"
+          style="white-space: pre-wrap; margin-top: 8px"
+        >
           <strong>Kelengkapan & Kondisi Fisik (Lama): </strong>
           <span style="color: #d97706; font-weight: 500">{{ legacyPhysical }}</span>
         </p>

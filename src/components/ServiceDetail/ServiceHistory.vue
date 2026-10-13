@@ -1,5 +1,8 @@
 <template>
-  <div class="hover-container" style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px">
+  <div
+    class="hover-container"
+    style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px"
+  >
     <h3
       style="
         margin-bottom: 15px;

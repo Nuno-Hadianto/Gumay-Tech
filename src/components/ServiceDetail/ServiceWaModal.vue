@@ -93,9 +93,12 @@ const emit = defineEmits(['close', 'send'])
 
 const localMessage = ref(props.initialMessage)
 
-watch(() => props.initialMessage, (newVal) => {
-  localMessage.value = newVal
-})
+watch(
+  () => props.initialMessage,
+  (newVal) => {
+    localMessage.value = newVal
+  }
+)
 
 const confirmSend = () => {
   emit('send', localMessage.value)

@@ -8,15 +8,17 @@ exports.CustomerSchema = zod_1.z.object({
     address: zod_1.z.string().optional().nullable(),
     notes: zod_1.z.string().optional().nullable()
 });
-exports.SparepartSchema = zod_1.z.object({
+exports.SparepartSchema = zod_1.z
+    .object({
     part_code: zod_1.z.string().optional().nullable(),
     name: zod_1.z.string().min(1, 'Nama sparepart wajib diisi.').max(150, 'Nama terlalu panjang.'),
     category: zod_1.z.string().optional().nullable(),
     buy_price: zod_1.z.number().min(0, 'Harga beli tidak boleh negatif.').optional().default(0),
     sell_price: zod_1.z.number().min(0, 'Harga jual tidak boleh negatif.').optional().default(0)
-}).refine(data => data.sell_price >= data.buy_price, {
-    message: "Harga jual tidak boleh lebih kecil dari harga beli/modal.",
-    path: ["sell_price"]
+})
+    .refine((data) => data.sell_price >= data.buy_price, {
+    message: 'Harga jual tidak boleh lebih kecil dari harga beli/modal.',
+    path: ['sell_price']
 });
 exports.DeviceSchema = zod_1.z.object({
     customer_id: zod_1.z.number().int('ID Pelanggan tidak valid.'),
@@ -30,7 +32,11 @@ exports.DeviceSchema = zod_1.z.object({
 exports.ServiceOrderSchema = zod_1.z.object({
     customer_id: zod_1.z.number().int('ID Pelanggan tidak valid.'),
     device_id: zod_1.z.number().int('ID Perangkat tidak valid.'),
-    estimated_completion_date: zod_1.z.string().optional().nullable().refine(val => {
+    estimated_completion_date: zod_1.z
+        .string()
+        .optional()
+        .nullable()
+        .refine((val) => {
         if (!val)
             return true;
         const inputDate = new Date(val).setHours(0, 0, 0, 0);

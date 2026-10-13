@@ -15,7 +15,7 @@ const props = defineProps<{
 const badgeStyle = computed(() => {
   let bg = '#e2e8f0'
   let color = '#334155'
-  
+
   if (props.status === ServiceStatus.SELESAI_SUDAH_DIAMBIL) {
     bg = '#10b981'
     color = 'white'

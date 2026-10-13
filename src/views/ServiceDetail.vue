@@ -60,12 +60,9 @@ import { ServiceItemSchema, PaymentSchema } from '@/utils/validators'
 import { ServiceOrderService } from '@/services/ServiceOrderService'
 import { PartService } from '@/services/PartService'
 import { SettingsService } from '@/services/SettingsService'
-import {
-  generateInvoiceHtml,
-  generateNotaHtml,
-  printHtml
-} from '../utils/printUtils.js'
+import { generateInvoiceHtml, generateNotaHtml, printHtml } from '../utils/printUtils.js'
 import { Toast, AppAlert, ConfirmDialog } from '@/utils/alert'
+import { useAppCacheStore } from '@/stores/appCacheStore'
 
 import ServiceActionBar from '@/components/ServiceDetail/ServiceActionBar.vue'
 import ServiceInfo from '@/components/ServiceDetail/ServiceInfo.vue'
@@ -76,6 +73,7 @@ import ServicePayments from '@/components/ServiceDetail/ServicePayments.vue'
 import ServiceWaModal from '@/components/ServiceDetail/ServiceWaModal.vue'
 
 const route = useRoute()
+const cacheStore = useAppCacheStore()
 const service = ref<ServiceOrder | null>(null)
 
 const history = ref<ServiceHistoryType[]>([])
@@ -164,7 +162,12 @@ const loadSettings = async () => {
   }
 }
 
-const saveUpdate = async (updateForm: { diagnosis_result: string; actions_taken: string; technician_notes: string; status: string }) => {
+const saveUpdate = async (updateForm: {
+  diagnosis_result: string
+  actions_taken: string
+  technician_notes: string
+  status: string
+}) => {
   if (!service.value) return
   try {
     const data = {
@@ -201,6 +204,8 @@ const saveUpdate = async (updateForm: { diagnosis_result: string; actions_taken:
       icon: 'success',
       title: 'Detail servis berhasil diperbarui'
     })
+    cacheStore.invalidateServiceCache()
+    cacheStore.invalidateDashboardCache()
     await loadServiceDetail()
     await loadHistory()
   } catch (error: unknown) {
@@ -209,7 +214,14 @@ const saveUpdate = async (updateForm: { diagnosis_result: string; actions_taken:
   }
 }
 
-const addItem = async (itemForm: { desc: string; type: string; qty: number; costPrice?: number; price: number; selectedPartId?: string | number }) => {
+const addItem = async (itemForm: {
+  desc: string
+  type: string
+  qty: number
+  costPrice?: number
+  price: number
+  selectedPartId?: string | number
+}) => {
   if (!service.value) return
   const desc = itemForm.desc
 
@@ -258,6 +270,12 @@ const addItem = async (itemForm: { desc: string; type: string; qty: number; cost
   try {
     await ServiceOrderService.addItem(finalData)
 
+    cacheStore.invalidateServiceCache()
+    cacheStore.invalidateDashboardCache()
+    if (itemForm.type === 'Sparepart') {
+      cacheStore.invalidatePartCache()
+    }
+
     await loadItems()
     await loadServiceDetail()
     if (itemForm.type === 'Sparepart') await loadParts()
@@ -274,6 +292,9 @@ const deleteItem = async (itemId: number) => {
   })
   if (result.isConfirmed) {
     await ServiceOrderService.deleteItem(itemId)
+    cacheStore.invalidateServiceCache()
+    cacheStore.invalidateDashboardCache()
+    cacheStore.invalidatePartCache()
     await loadItems()
     await loadServiceDetail()
     await loadParts()
@@ -309,6 +330,8 @@ const addPayment = async (paymentForm: { amount: number; method: string }) => {
 
   try {
     await ServiceOrderService.addPayment(data as Payment)
+    cacheStore.invalidateServiceCache()
+    cacheStore.invalidateDashboardCache()
     await loadPayments()
     await loadServiceDetail()
   } catch (error: unknown) {
@@ -325,6 +348,8 @@ const deletePayment = async (paymentId: number) => {
   })
   if (result.isConfirmed) {
     await ServiceOrderService.deletePayment(paymentId)
+    cacheStore.invalidateServiceCache()
+    cacheStore.invalidateDashboardCache()
     await loadPayments()
     await loadServiceDetail()
   }
@@ -386,7 +411,6 @@ const printNota = async () => {
   }
 }
 
-
 const printReceipt = async () => {
   if (!service.value) return
   try {
@@ -417,6 +441,5 @@ onMounted(async () => {
   ])
 })
 
-onUnmounted(() => {
-})
+onUnmounted(() => {})
 </script>

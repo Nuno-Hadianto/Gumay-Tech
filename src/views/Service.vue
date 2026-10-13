@@ -6,28 +6,21 @@
         @input="debounceSearch"
         placeholder="Cari tiket, pelanggan, perangkat..."
       />
-      
+
       <div class="action-buttons">
-        <select
-          v-model="sortBy"
-          @change="loadServices(1)"
-          class="form-control sort-select"
-        >
+        <select v-model="sortBy" @change="loadServices(1)" class="form-control sort-select">
           <option value="name_asc">Urutan: Nama Pelanggan (A-Z)</option>
           <option value="name_desc">Urutan: Nama Pelanggan (Z-A)</option>
           <option value="id_desc">Urutan: Terbaru Dibuat</option>
           <option value="id_asc">Urutan: Terlama Dibuat</option>
         </select>
 
-        <button
-          @click="openAddModal"
-          class="btn btn-primary add-btn"
-        >
+        <button @click="openAddModal" class="btn btn-primary add-btn">
           <Plus :size="18" /> Buat Tiket Servis
         </button>
       </div>
     </div>
-    
+
     <div class="table-container">
       <table class="data-table">
         <thead>
@@ -66,7 +59,14 @@
             </td>
             <td>
               <div>{{ formatCurrency(s.total_cost) }}</div>
-              <div v-if="s.payment_status === 'Gratis' && (s.customer_complaint && s.customer_complaint.includes('Klaim Garansi'))" class="claim-badge">
+              <div
+                v-if="
+                  s.payment_status === 'Gratis' &&
+                  s.customer_complaint &&
+                  s.customer_complaint.includes('Klaim Garansi')
+                "
+                class="claim-badge"
+              >
                 🛠️ Klaim Garansi
               </div>
             </td>
@@ -78,7 +78,10 @@
                 <button class="btn btn-primary btn-sm action-btn" @click="goToDetail(s.id)">
                   <Info :size="14" /> Detail
                 </button>
-                <button class="btn btn-danger btn-sm action-btn" @click="deleteService(s.id, s.ticket_number)">
+                <button
+                  class="btn btn-danger btn-sm action-btn"
+                  @click="deleteService(s.id, s.ticket_number)"
+                >
                   <Trash2 :size="14" /> Hapus
                 </button>
               </div>
@@ -88,11 +91,7 @@
       </table>
     </div>
 
-    <Pagination
-      :current-page="currentPage"
-      :total-pages="totalPages"
-      @change="loadServices"
-    />
+    <Pagination :current-page="currentPage" :total-pages="totalPages" @change="loadServices" />
 
     <ServiceFormModal
       :is-open="isModalOpen"
@@ -136,7 +135,8 @@ const {
   loadData: loadServices,
   debounceSearch
 } = useDataTable<ServiceOrder>({
-  fetchFn: (search, page, limit, sort) => ServiceOrderService.getAll(search, page, limit, undefined, sort),
+  fetchFn: (search, page, limit, sort) =>
+    ServiceOrderService.getAll(search, page, limit, undefined, sort),
   defaultSort: 'id_desc',
   cacheData: cacheStore.services,
   setCache: cacheStore.setServiceCache
@@ -182,6 +182,7 @@ const deleteService = async (id: number, ticketNo: string) => {
       await ServiceOrderService.delete(id)
       Toast.fire({ icon: 'success', title: 'Tiket servis berhasil dihapus.' })
       cacheStore.invalidateServiceCache()
+      cacheStore.invalidateDashboardCache()
       loadServices(currentPage.value)
     } catch (error: unknown) {
       console.error(error)
@@ -194,7 +195,7 @@ const deleteService = async (id: number, ticketNo: string) => {
 // Modal Form Logic
 const isModalOpen = ref<boolean>(false)
 const editId = ref<number | null>(null)
-const modalTitle = computed(() => editId.value ? 'Edit Tiket Servis' : 'Buat Tiket Servis Baru')
+const modalTitle = computed(() => (editId.value ? 'Edit Tiket Servis' : 'Buat Tiket Servis Baru'))
 
 const formInitialData = ref<{
   customer_id: string | number
@@ -226,7 +227,7 @@ const openAddModal = async () => {
 const openEditModal = async (s: ServiceOrder) => {
   editId.value = s.id
   await loadCustomersDropdown()
-  
+
   formInitialData.value = {
     customer_id: s.customer_id,
     device_id: s.device_id,
@@ -234,12 +235,17 @@ const openEditModal = async (s: ServiceOrder) => {
     physical_condition: s.physical_condition || '',
     accessories: s.accessories || ''
   }
-  
+
   isModalOpen.value = true
 }
 
-
-const saveService = async (data: { customer_id: number; device_id: number; customer_complaint: string; physical_condition: string; accessories: string }) => {
+const saveService = async (data: {
+  customer_id: number
+  device_id: number
+  customer_complaint: string
+  physical_condition: string
+  accessories: string
+}) => {
   try {
     // Validasi dengan Zod
     try {
@@ -271,9 +277,10 @@ const saveService = async (data: { customer_id: number; device_id: number; custo
     } else {
       await ServiceOrderService.create(finalPayload)
     }
-    
+
     isModalOpen.value = false
     cacheStore.invalidateServiceCache()
+    cacheStore.invalidateDashboardCache()
     loadServices(currentPage.value)
     Toast.fire({
       icon: 'success',

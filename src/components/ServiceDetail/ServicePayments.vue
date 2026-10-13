@@ -1,6 +1,6 @@
 <template>
   <div class="card hover-container">
-    <h2 style="display: flex; align-items: center; gap: 10px; color: var(--primary-color);">
+    <h2 style="display: flex; align-items: center; gap: 10px; color: var(--primary-color)">
       <CreditCard :size="22" /> Pembayaran
     </h2>
     <div
@@ -27,17 +27,10 @@
       >
         <div style="display: flex; justify-content: space-between">
           <strong>{{ p.payment_number }}</strong>
-          <span style="color: #4f46e5; font-weight: bold">{{
-            formatCurrency(p.amount)
-          }}</span>
+          <span style="color: #4f46e5; font-weight: bold">{{ formatCurrency(p.amount) }}</span>
         </div>
         <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #64748b;
-          "
+          style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b"
         >
           <span
             >{{ new Date(p.payment_date + 'Z').toLocaleString('id-ID') }} -
@@ -47,7 +40,7 @@
             @click="$emit('delete', p.id)"
             class="btn-icon-danger"
             title="Hapus"
-            style="width: 24px; height: 24px;"
+            style="width: 24px; height: 24px"
           >
             <Trash2 :size="12" />
           </button>
@@ -60,14 +53,7 @@
         <span>Total Dibayar:</span>
         <strong>{{ formatCurrency(totalPaid) }}</strong>
       </div>
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          color: #ef4444;
-          font-weight: bold;
-        "
-      >
+      <div style="display: flex; justify-content: space-between; color: #ef4444; font-weight: bold">
         <span>Sisa Tagihan:</span>
         <span>{{ formatCurrency(remainingBill) }}</span>
       </div>
@@ -87,9 +73,7 @@
           <option value="Debit/Kredit">Debit/Kredit</option>
           <option value="QRIS">QRIS</option>
         </select>
-        <button @click="addPayment" class="btn btn-primary" style="padding: 6px 12px">
-          Bayar
-        </button>
+        <button @click="addPayment" class="btn btn-primary" style="padding: 6px 12px">Bayar</button>
       </div>
     </div>
   </div>

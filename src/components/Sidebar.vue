@@ -32,9 +32,7 @@
         <li class="nav-header">SISTEM</li>
 
         <li :class="{ active: $route.name === 'Settings' }">
-          <router-link to="/settings"
-            ><Settings class="menu-icon" /> Pengaturan</router-link
-          >
+          <router-link to="/settings"><Settings class="menu-icon" /> Pengaturan</router-link>
         </li>
         <li :class="{ active: $route.name === 'RecycleBin' }">
           <router-link to="/recycle-bin"><Trash2 class="menu-icon" /> Keranjang Sampah</router-link>
@@ -58,11 +56,6 @@ import {
   Settings,
   Trash2
 } from 'lucide-vue-next'
-
-
-
-
-
 </script>
 
 <style scoped>

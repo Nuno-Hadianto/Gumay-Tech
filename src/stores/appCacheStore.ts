@@ -23,7 +23,7 @@ export const useAppCacheStore = defineStore('appCache', {
     devices: createEmptyListCache<Device>(),
     services: createEmptyListCache<ServiceOrder>(),
     parts: createEmptyListCache<Part>(),
-    
+
     // Khusus dashboard stats (bukan list array, melainkan object stat)
     dashboard: {
       stats: null as DashboardStats | null,
@@ -68,6 +68,13 @@ export const useAppCacheStore = defineStore('appCache', {
       this.parts.hasCached = false
     },
     invalidateDashboardCache() {
+      this.dashboard.hasCached = false
+    },
+    invalidateAllCache() {
+      this.customers.hasCached = false
+      this.devices.hasCached = false
+      this.services.hasCached = false
+      this.parts.hasCached = false
       this.dashboard.hasCached = false
     }
   }

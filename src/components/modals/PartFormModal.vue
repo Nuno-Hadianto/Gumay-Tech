@@ -18,7 +18,9 @@
                   :class="['form-control', { 'border-danger': formErrors.part_code }]"
                   placeholder="Contoh: LCD-IP-11"
                 />
-                <span v-if="formErrors.part_code" class="text-danger error-text">{{ formErrors.part_code }}</span>
+                <span v-if="formErrors.part_code" class="text-danger error-text">{{
+                  formErrors.part_code
+                }}</span>
               </div>
               <div class="form-group flex-1">
                 <label>Kategori</label>
@@ -29,7 +31,9 @@
                   :class="['form-control', { 'border-danger': formErrors.category }]"
                   placeholder="Contoh: LCD, Baterai..."
                 />
-                <span v-if="formErrors.category" class="text-danger error-text">{{ formErrors.category }}</span>
+                <span v-if="formErrors.category" class="text-danger error-text">{{
+                  formErrors.category
+                }}</span>
               </div>
             </div>
             <div class="form-group">
@@ -42,7 +46,9 @@
                 :class="['form-control', { 'border-danger': formErrors.name }]"
                 placeholder="Nama barang"
               />
-              <span v-if="formErrors.name" class="text-danger error-text">{{ formErrors.name }}</span>
+              <span v-if="formErrors.name" class="text-danger error-text">{{
+                formErrors.name
+              }}</span>
             </div>
             <div class="form-row">
               <div class="form-group flex-1">
@@ -55,7 +61,9 @@
                   min="0"
                   :class="['form-control', { 'border-danger': formErrors.buy_price }]"
                 />
-                <span v-if="formErrors.buy_price" class="text-danger error-text">{{ formErrors.buy_price }}</span>
+                <span v-if="formErrors.buy_price" class="text-danger error-text">{{
+                  formErrors.buy_price
+                }}</span>
               </div>
               <div class="form-group flex-1">
                 <label>Harga Jual (Rp)</label>
@@ -67,16 +75,14 @@
                   min="0"
                   :class="['form-control', { 'border-danger': formErrors.sell_price }]"
                 />
-                <span v-if="formErrors.sell_price" class="text-danger error-text">{{ formErrors.sell_price }}</span>
+                <span v-if="formErrors.sell_price" class="text-danger error-text">{{
+                  formErrors.sell_price
+                }}</span>
               </div>
             </div>
 
             <div class="modal-footer action-footer">
-              <button
-                type="button"
-                class="btn btn-cancel"
-                @click="close"
-              >
+              <button type="button" class="btn btn-cancel" @click="close">
                 <X :size="16" class="icon-spacing" /> Batal
               </button>
               <button type="submit" class="btn btn-primary" :disabled="hasErrors">
@@ -110,13 +116,16 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'save', data: {
-    part_code: string
-    name: string
-    category: string
-    buy_price: number
-    sell_price: number
-  }): void
+  (
+    e: 'save',
+    data: {
+      part_code: string
+      name: string
+      category: string
+      buy_price: number
+      sell_price: number
+    }
+  ): void
 }>()
 
 const form = reactive({
@@ -130,12 +139,13 @@ const form = reactive({
 const formErrors = reactive<Record<string, string>>({})
 
 const hasErrors = computed(() => {
-  return Object.values(formErrors).some(err => err !== '')
+  return Object.values(formErrors).some((err) => err !== '')
 })
 
 const validateField = (field: string, value: unknown) => {
   try {
-    const parsedValue = (field === 'buy_price' || field === 'sell_price') && value === '' ? 0 : value
+    const parsedValue =
+      (field === 'buy_price' || field === 'sell_price') && value === '' ? 0 : value
     const schema = SparepartSchema.pick({ [field]: true } as never)
     schema.parse({ [field]: parsedValue })
     formErrors[field] = ''
@@ -149,25 +159,29 @@ const validateField = (field: string, value: unknown) => {
 const validateAll = () => {
   let isValid = true
   const fields = ['part_code', 'name', 'category', 'buy_price', 'sell_price']
-  fields.forEach(field => {
+  fields.forEach((field) => {
     validateField(field, form[field as keyof typeof form])
     if (formErrors[field]) isValid = false
   })
   return isValid
 }
 
-watch(() => props.isOpen, (newVal) => {
-  if (newVal) {
-    form.part_code = props.initialData?.part_code || ''
-    form.name = props.initialData?.name || ''
-    form.category = props.initialData?.category || ''
-    form.buy_price = props.initialData?.buy_price || 0
-    form.sell_price = props.initialData?.sell_price !== undefined ? props.initialData.sell_price : ''
-    
-    // Reset errors
-    Object.keys(formErrors).forEach(key => formErrors[key] = '')
+watch(
+  () => props.isOpen,
+  (newVal) => {
+    if (newVal) {
+      form.part_code = props.initialData?.part_code || ''
+      form.name = props.initialData?.name || ''
+      form.category = props.initialData?.category || ''
+      form.buy_price = props.initialData?.buy_price || 0
+      form.sell_price =
+        props.initialData?.sell_price !== undefined ? props.initialData.sell_price : ''
+
+      // Reset errors
+      Object.keys(formErrors).forEach((key) => (formErrors[key] = ''))
+    }
   }
-})
+)
 
 const close = () => {
   emit('close')
@@ -175,7 +189,7 @@ const close = () => {
 
 const submitForm = () => {
   if (!validateAll()) return
-  emit('save', { 
+  emit('save', {
     ...form,
     buy_price: Number(form.buy_price),
     sell_price: Number(form.sell_price)

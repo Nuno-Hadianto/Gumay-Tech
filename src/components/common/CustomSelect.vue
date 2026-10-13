@@ -1,7 +1,11 @@
 <template>
-  <div class="custom-select" ref="selectRef" :class="{ 'is-open': isOpen, 'is-disabled': disabled }">
+  <div
+    class="custom-select"
+    ref="selectRef"
+    :class="{ 'is-open': isOpen, 'is-disabled': disabled }"
+  >
     <div class="select-trigger form-control" @click="toggleOpen">
-      <span class="selected-text" :class="{ 'placeholder': !selectedOption }">
+      <span class="selected-text" :class="{ placeholder: !selectedOption }">
         {{ selectedOption ? selectedOption.label : placeholder }}
       </span>
       <ChevronDown class="dropdown-icon" :size="16" />
@@ -19,11 +23,9 @@
             @click.stop
           />
         </div>
-        
+
         <ul class="options-list">
-          <li v-if="filteredOptions.length === 0" class="no-options">
-            Data tidak ditemukan
-          </li>
+          <li v-if="filteredOptions.length === 0" class="no-options">Data tidak ditemukan</li>
           <li
             v-for="option in filteredOptions"
             :key="option.value"
@@ -40,78 +42,81 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
-import { ChevronDown, Search } from 'lucide-vue-next';
+import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ChevronDown, Search } from 'lucide-vue-next'
 
 interface Option {
-  value: string | number;
-  label: string;
+  value: string | number
+  label: string
 }
 
-const props = withDefaults(defineProps<{
-  modelValue: string | number;
-  options: Option[];
-  placeholder?: string;
-  searchable?: boolean;
-  disabled?: boolean;
-}>(), {
-  placeholder: 'Pilih salah satu',
-  searchable: true,
-  disabled: false
-});
+const props = withDefaults(
+  defineProps<{
+    modelValue: string | number
+    options: Option[]
+    placeholder?: string
+    searchable?: boolean
+    disabled?: boolean
+  }>(),
+  {
+    placeholder: 'Pilih salah satu',
+    searchable: true,
+    disabled: false
+  }
+)
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | number): void;
-  (e: 'change', value: string | number): void;
-}>();
+  (e: 'update:modelValue', value: string | number): void
+  (e: 'change', value: string | number): void
+}>()
 
-const isOpen = ref(false);
-const searchQuery = ref('');
-const selectRef = ref<HTMLElement | null>(null);
-const searchInputRef = ref<HTMLInputElement | null>(null);
+const isOpen = ref(false)
+const searchQuery = ref('')
+const selectRef = ref<HTMLElement | null>(null)
+const searchInputRef = ref<HTMLInputElement | null>(null)
 
 const selectedOption = computed(() => {
-  return props.options.find(opt => opt.value === props.modelValue);
-});
+  return props.options.find((opt) => opt.value === props.modelValue)
+})
 
 const filteredOptions = computed(() => {
   if (!searchQuery.value || !props.searchable) {
-    return props.options;
+    return props.options
   }
-  const query = searchQuery.value.toLowerCase();
-  return props.options.filter(opt => opt.label.toLowerCase().includes(query));
-});
+  const query = searchQuery.value.toLowerCase()
+  return props.options.filter((opt) => opt.label.toLowerCase().includes(query))
+})
 
 const toggleOpen = () => {
-  if (props.disabled) return;
-  isOpen.value = !isOpen.value;
+  if (props.disabled) return
+  isOpen.value = !isOpen.value
   if (isOpen.value && props.searchable) {
-    searchQuery.value = '';
+    searchQuery.value = ''
     nextTick(() => {
-      searchInputRef.value?.focus();
-    });
+      searchInputRef.value?.focus()
+    })
   }
-};
+}
 
 const selectOption = (option: Option) => {
-  emit('update:modelValue', option.value);
-  emit('change', option.value);
-  isOpen.value = false;
-};
+  emit('update:modelValue', option.value)
+  emit('change', option.value)
+  isOpen.value = false
+}
 
 const closeDropdown = (e: MouseEvent) => {
   if (selectRef.value && !selectRef.value.contains(e.target as Node)) {
-    isOpen.value = false;
+    isOpen.value = false
   }
-};
+}
 
 onMounted(() => {
-  document.addEventListener('click', closeDropdown);
-});
+  document.addEventListener('click', closeDropdown)
+})
 
 onBeforeUnmount(() => {
-  document.removeEventListener('click', closeDropdown);
-});
+  document.removeEventListener('click', closeDropdown)
+})
 </script>
 
 <style scoped>
@@ -238,7 +243,9 @@ onBeforeUnmount(() => {
 /* Transitions */
 .dropdown-enter-active,
 .dropdown-leave-active {
-  transition: opacity 0.2s, transform 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
 }
 
 .dropdown-enter-from,

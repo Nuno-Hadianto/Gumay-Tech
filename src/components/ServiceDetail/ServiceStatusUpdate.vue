@@ -18,7 +18,7 @@
         <select
           v-model="form.status"
           class="form-control"
-          style="padding: 10px; border-radius: var(--radius-sm);"
+          style="padding: 10px; border-radius: var(--radius-sm)"
         >
           <option :value="ServiceStatus.DITERIMA">Diterima</option>
           <option value="Pengecekan">Pengecekan</option>
@@ -30,28 +30,52 @@
         </select>
       </div>
       <div class="form-group" style="margin: 0">
-        <label style="font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <label
+          style="
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+          "
+        >
           Pemeriksaan & Perbaikan
         </label>
-        <div style="display: flex; gap: 15px; width: 100%;">
+        <div style="display: flex; gap: 15px; width: 100%">
           <div style="flex: 1; display: flex; flex-direction: column; gap: 5px">
-            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">HASIL DIAGNOSIS</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500"
+              >HASIL DIAGNOSIS</span
+            >
             <textarea
               v-model="form.diagnosis_result"
               rows="3"
               class="form-control"
               placeholder="Jelaskan kerusakan..."
-              style="padding: 10px; border-radius: var(--radius-sm); resize: vertical; width: 100%; box-sizing: border-box;"
+              style="
+                padding: 10px;
+                border-radius: var(--radius-sm);
+                resize: vertical;
+                width: 100%;
+                box-sizing: border-box;
+              "
             ></textarea>
           </div>
           <div style="flex: 1; display: flex; flex-direction: column; gap: 5px">
-            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">TINDAKAN DILAKUKAN</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500"
+              >TINDAKAN DILAKUKAN</span
+            >
             <textarea
               v-model="form.actions_taken"
               rows="3"
               class="form-control"
               placeholder="Jelaskan tindakan perbaikan..."
-              style="padding: 10px; border-radius: var(--radius-sm); resize: vertical; width: 100%; box-sizing: border-box;"
+              style="
+                padding: 10px;
+                border-radius: var(--radius-sm);
+                resize: vertical;
+                width: 100%;
+                box-sizing: border-box;
+              "
             ></textarea>
           </div>
         </div>
@@ -63,13 +87,19 @@
           rows="2"
           class="form-control"
           placeholder="Catatan ini tidak muncul di struk"
-          style="padding: 10px; border-radius: var(--radius-sm); resize: vertical; width: 100%; box-sizing: border-box;"
+          style="
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            resize: vertical;
+            width: 100%;
+            box-sizing: border-box;
+          "
         ></textarea>
       </div>
       <button
         class="btn btn-primary"
         @click="saveUpdate"
-        style="align-self: flex-end; display: flex; align-items: center; gap: 6px;"
+        style="align-self: flex-end; display: flex; align-items: center; gap: 6px"
       >
         <Save :size="18" /> Simpan Perubahan
       </button>
@@ -95,7 +125,6 @@ const form = reactive({
   actions_taken: '',
   technician_notes: ''
 })
-
 
 // Initialize form when service data changes
 watch(

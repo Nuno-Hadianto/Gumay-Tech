@@ -7,25 +7,18 @@
         placeholder="Cari pelanggan (Nama / HP)..."
       />
 
-      <select
-        v-model="sortBy"
-        @change="loadCustomers(1)"
-        class="form-control sort-select"
-      >
+      <select v-model="sortBy" @change="loadCustomers(1)" class="form-control sort-select">
         <option value="name_asc">Urutan: Nama (A-Z)</option>
         <option value="name_desc">Urutan: Nama (Z-A)</option>
         <option value="id_desc">Urutan: Terbaru Ditambah</option>
         <option value="id_asc">Urutan: Terlama Ditambah</option>
       </select>
 
-      <button
-        @click="openAddModal"
-        class="btn btn-primary add-btn"
-      >
+      <button @click="openAddModal" class="btn btn-primary add-btn">
         <Plus :size="18" /> Tambah Pelanggan
       </button>
     </div>
-    
+
     <div class="table-container">
       <table class="data-table">
         <thead>
@@ -55,16 +48,10 @@
             <td>{{ c.phone || '-' }}</td>
             <td>{{ c.address || '-' }}</td>
             <td>
-              <button
-                class="btn btn-secondary btn-sm action-btn"
-                @click="editCustomer(c)"
-              >
+              <button class="btn btn-secondary btn-sm action-btn" @click="editCustomer(c)">
                 <Edit :size="14" /> Edit
               </button>
-              <button
-                class="btn btn-danger btn-sm action-btn"
-                @click="deleteCustomer(c.id)"
-              >
+              <button class="btn btn-danger btn-sm action-btn" @click="deleteCustomer(c.id)">
                 <Trash2 :size="14" /> Hapus
               </button>
             </td>
@@ -73,11 +60,7 @@
       </table>
     </div>
 
-    <Pagination
-      :current-page="currentPage"
-      :total-pages="totalPages"
-      @change="loadCustomers"
-    />
+    <Pagination :current-page="currentPage" :total-pages="totalPages" @change="loadCustomers" />
 
     <CustomerFormModal
       :is-open="isModalOpen"
@@ -166,6 +149,8 @@ const saveCustomer = async (data: Omit<Customer, 'id'>) => {
     }
     isModalOpen.value = false
     cacheStore.invalidateCustomerCache()
+    cacheStore.invalidateServiceCache()
+    cacheStore.invalidateDashboardCache()
     loadCustomers(currentPage.value)
     Toast.fire({
       icon: 'success',
@@ -190,6 +175,8 @@ const deleteCustomer = async (id: number) => {
       await CustomerService.delete(id)
       Toast.fire({ icon: 'success', title: 'Pelanggan berhasil dihapus.' })
       cacheStore.invalidateCustomerCache()
+      cacheStore.invalidateServiceCache()
+      cacheStore.invalidateDashboardCache()
       loadCustomers(currentPage.value)
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : String(error)

@@ -4,21 +4,10 @@
       <div class="filter-group">
         <Calendar class="calendar-icon" :size="18" />
         <span class="filter-label">Filter:</span>
-        <input
-          type="date"
-          v-model="startDate"
-          class="form-control modern-date-input"
-        />
+        <input type="date" v-model="startDate" class="form-control modern-date-input" />
         <span class="filter-label">s/d</span>
-        <input
-          type="date"
-          v-model="endDate"
-          class="form-control modern-date-input"
-        />
-        <button
-          @click="generateReport"
-          class="btn btn-primary btn-generate"
-        >
+        <input type="date" v-model="endDate" class="form-control modern-date-input" />
+        <button @click="generateReport" class="btn btn-primary btn-generate">
           <Filter :size="16" /> Tampilkan
         </button>
       </div>
@@ -96,7 +85,11 @@
       </StatCard>
       <StatCard
         title="Margin Sparepart (Laba)"
-        :value="formatCurrency((breakdownData?.sparepart?.omset || 0) - (breakdownData?.sparepart?.modal || 0))"
+        :value="
+          formatCurrency(
+            (breakdownData?.sparepart?.omset || 0) - (breakdownData?.sparepart?.modal || 0)
+          )
+        "
         variant="success"
         :center="true"
         :borderTop="true"
@@ -198,14 +191,13 @@ const generateReport = async () => {
     totalOmset.value = omset
     totalModal.value = modal
     netProfit.value = omset - modal
-    
+
     const bd = await ReportService.getReportBreakdown(startDate.value, endDate.value)
     breakdownData.value = bd as Record<string, Record<string, number>>
   } catch (error) {
     console.error(error)
   }
 }
-
 </script>
 
 <style scoped>

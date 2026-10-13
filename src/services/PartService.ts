@@ -1,7 +1,12 @@
 import type { Part } from '../../shared/types'
 
 export const PartService = {
-  async getAll(searchQuery: string, page: number, limit: number, sortBy?: string): Promise<{ data: Part[]; total: number }> {
+  async getAll(
+    searchQuery: string,
+    page: number,
+    limit: number,
+    sortBy?: string
+  ): Promise<{ data: Part[]; total: number }> {
     if (!window.api?.getParts) throw new Error('API not available')
     return window.api.getParts(searchQuery, page, limit, sortBy)
   },

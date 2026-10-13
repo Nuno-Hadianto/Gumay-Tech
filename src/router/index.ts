@@ -45,7 +45,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: 'Laporan Keuangan' }
   },
 
-
   {
     path: '/recycle-bin',
     name: 'RecycleBin',
@@ -64,7 +63,5 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
-
-
 
 export default router

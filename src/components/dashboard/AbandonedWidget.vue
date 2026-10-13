@@ -2,17 +2,17 @@
   <div class="card warning-card">
     <div class="warning-header">
       <h2 class="warning-title text-danger">
-        <AlertOctagon style="width: 24px; height: 24px;" /> Peringatan Follow-up Pelanggan
+        <AlertOctagon style="width: 24px; height: 24px" /> Peringatan Follow-up Pelanggan
       </h2>
     </div>
     <div class="table-container table-scroll">
       <table class="data-table">
         <thead>
           <tr>
-            <th style="width: 20%; white-space: nowrap;">No. Tiket</th>
-            <th style="width: 45%; white-space: nowrap;">Status</th>
-            <th style="width: 20%; white-space: nowrap;">Lama (Hari)</th>
-            <th style="width: 15%; white-space: nowrap;">Aksi</th>
+            <th style="width: 20%; white-space: nowrap">No. Tiket</th>
+            <th style="width: 45%; white-space: nowrap">Status</th>
+            <th style="width: 20%; white-space: nowrap">Lama (Hari)</th>
+            <th style="width: 15%; white-space: nowrap">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -42,10 +42,14 @@
             >
               <td class="ticket-col">{{ srv.ticket_number }}</td>
               <td>
-                <span class="badge badge-warning" style="white-space: nowrap;">{{ srv.service_status }}</span>
+                <span class="badge badge-warning" style="white-space: nowrap">{{
+                  srv.service_status
+                }}</span>
               </td>
               <td>
-                <span class="badge badge-danger" style="white-space: nowrap;"> {{ srv.days_pending }} Hari </span>
+                <span class="badge badge-danger" style="white-space: nowrap">
+                  {{ srv.days_pending }} Hari
+                </span>
               </td>
               <td>
                 <button @click.stop="$emit('send-wa', srv)" class="btn-wa">

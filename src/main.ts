@@ -31,7 +31,7 @@ app.use(router)
 
 // Global Error Handler for Unhandled Promises (e.g., IPC errors)
 window.addEventListener('unhandledrejection', (event) => {
-  const message = event.reason?.message || 'Terjadi kesalahan sistem';
+  const message = event.reason?.message || 'Terjadi kesalahan sistem'
   // Check if it's an IPC error or similar to avoid spamming network errors, but generally good to show
   Swal.fire({
     toast: true,
@@ -42,7 +42,7 @@ window.addEventListener('unhandledrejection', (event) => {
     showConfirmButton: false,
     timer: 5000,
     timerProgressBar: true
-  });
-});
+  })
+})
 
 app.mount('#app')

@@ -51,24 +51,34 @@ export const generateNotaHtml = (
                 <div class="nota-col" style="flex: 1.5;">
                     <h4 class="nota-col-title">Keluhan / Kerusakan</h4>
                     <div class="nota-complaint" style="white-space: pre-wrap;">${
-                        service 
+                      service
                         ? (() => {
-                            let out = '';
-                            const txt = service.customer_complaint || '';
-                            const sep = '\\n\\n[Kelengkapan & Kondisi Fisik]:\\n';
-                            const idx = txt.indexOf(sep);
+                            let out = ''
+                            const txt = service.customer_complaint || ''
+                            const sep = '\\n\\n[Kelengkapan & Kondisi Fisik]:\\n'
+                            const idx = txt.indexOf(sep)
                             if (idx !== -1) {
-                                out += txt.substring(0, idx);
-                                if (!service.accessories && !service.physical_condition) {
-                                    out += '<br/><br/><strong>Kelengkapan & Kondisi Fisik (Legacy):</strong><br/>' + txt.substring(idx + sep.length);
-                                }
+                              out += txt.substring(0, idx)
+                              if (!service.accessories && !service.physical_condition) {
+                                out +=
+                                  '<br/><br/><strong>Kelengkapan & Kondisi Fisik (Legacy):</strong><br/>' +
+                                  txt.substring(idx + sep.length)
+                              }
                             } else {
-                                out += txt;
+                              out += txt
                             }
-                            if (service.accessories) out += '<br/><br/><strong>Kelengkapan:</strong> ' + service.accessories;
-                            if (service.physical_condition) out += '<br/><br/><strong>Kondisi Fisik:</strong> ' + service.physical_condition;
-                            return out || '..................................................<br/>..................................................<br/>..................................................';
-                        })()
+                            if (service.accessories)
+                              out +=
+                                '<br/><br/><strong>Kelengkapan:</strong> ' + service.accessories
+                            if (service.physical_condition)
+                              out +=
+                                '<br/><br/><strong>Kondisi Fisik:</strong> ' +
+                                service.physical_condition
+                            return (
+                              out ||
+                              '..................................................<br/>..................................................<br/>..................................................'
+                            )
+                          })()
                         : '..................................................<br/>..................................................<br/>..................................................'
                     }</div>
                 </div>
@@ -249,7 +259,7 @@ export const printHtml = async (
       })
     })
     await Promise.all(imagePromises)
-    
+
     // Give browser a tiny delay to ensure paint is complete
     await new Promise((resolve) => setTimeout(resolve, 50))
 
@@ -341,38 +351,38 @@ export const generateThermalNotaHtml = (
             <div class="thm-dashed"></div>
             
             ${(() => {
-                let out = '';
-                const txt = service?.customer_complaint || '';
-                const sep = '\\n\\n[Kelengkapan & Kondisi Fisik]:\\n';
-                const idx = txt.indexOf(sep);
-                if (idx !== -1) {
-                    out += `
+              let out = ''
+              const txt = service?.customer_complaint || ''
+              const sep = '\\n\\n[Kelengkapan & Kondisi Fisik]:\\n'
+              const idx = txt.indexOf(sep)
+              if (idx !== -1) {
+                out += `
                         <div class="thm-bold thm-section-title">KELUHAN:</div>
                         <div class="thm-text" style="white-space: pre-wrap;">${txt.substring(0, idx)}</div>
-                    `;
-                    if (!service?.accessories && !service?.physical_condition) {
-                        out += `
+                    `
+                if (!service?.accessories && !service?.physical_condition) {
+                  out += `
                             <br/>
                             <div class="thm-bold thm-section-title" style="margin-top: 5px;">KELENGKAPAN (Lama):</div>
                             <div class="thm-text" style="white-space: pre-wrap;">${txt.substring(idx + sep.length)}</div>
-                        `;
-                    }
-                } else {
-                    out += `
+                        `
+                }
+              } else {
+                out += `
                         <div class="thm-bold thm-section-title">KELUHAN:</div>
                         <div class="thm-text" style="white-space: pre-wrap;">${txt}</div>
-                    `;
-                }
-                
-                if (service?.physical_condition) {
-                    out += `
+                    `
+              }
+
+              if (service?.physical_condition) {
+                out += `
                         <br/>
                         <div class="thm-bold thm-section-title" style="margin-top: 5px;">KONDISI FISIK:</div>
                         <div class="thm-text" style="white-space: pre-wrap;">${service.physical_condition}</div>
-                    `;
-                }
-                
-                return out;
+                    `
+              }
+
+              return out
             })()}
             
             <div class="thm-dashed"></div>

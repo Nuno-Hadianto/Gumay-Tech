@@ -30,17 +30,13 @@
         v-model="form.type"
         @change="onItemTypeChange"
         class="form-control"
-        style="
-          width: auto;
-          padding: 8px 12px;
-          border-radius: var(--radius-sm);
-        "
+        style="width: auto; padding: 8px 12px; border-radius: var(--radius-sm)"
       >
         <option value="Jasa">Jasa</option>
         <option value="Sparepart">Sparepart</option>
       </select>
 
-      <div v-if="form.type === 'Sparepart'" style="width: 220px;">
+      <div v-if="form.type === 'Sparepart'" style="width: 220px">
         <CustomSelect
           v-model="form.selectedPartId"
           :options="partOptions"
@@ -54,12 +50,7 @@
         v-model="form.desc"
         class="form-control"
         placeholder="Keterangan"
-        style="
-          flex: 1;
-          min-width: 120px;
-          padding: 8px 12px;
-          border-radius: var(--radius-sm);
-        "
+        style="flex: 1; min-width: 120px; padding: 8px 12px; border-radius: var(--radius-sm)"
       />
 
       <input
@@ -68,11 +59,7 @@
         class="form-control"
         placeholder="Qty"
         min="1"
-        style="
-          width: 70px;
-          padding: 8px 12px;
-          border-radius: var(--radius-sm);
-        "
+        style="width: 70px; padding: 8px 12px; border-radius: var(--radius-sm)"
       />
       <input
         v-if="form.type === 'Sparepart'"
@@ -80,30 +67,20 @@
         v-model.number="form.costPrice"
         class="form-control"
         placeholder="Harga Beli (Modal)"
-        style="
-          flex: 1;
-          min-width: 130px;
-          padding: 8px 12px;
-          border-radius: var(--radius-sm);
-        "
+        style="flex: 1; min-width: 130px; padding: 8px 12px; border-radius: var(--radius-sm)"
       />
       <input
         type="number"
         v-model.number="form.price"
         class="form-control"
         :placeholder="form.type === 'Sparepart' ? 'Harga Jual' : 'Harga'"
-        style="
-          flex: 1;
-          min-width: 110px;
-          padding: 8px 12px;
-          border-radius: var(--radius-sm);
-        "
+        style="flex: 1; min-width: 110px; padding: 8px 12px; border-radius: var(--radius-sm)"
       />
       <button
         @click="addItem"
         class="btn-icon-primary"
         title="Tambah Item"
-        style="width: 36px; height: 36px; margin-left: 5px;"
+        style="width: 36px; height: 36px; margin-left: 5px"
       >
         <Plus :size="20" />
       </button>
@@ -144,11 +121,7 @@
             <span style="font-weight: 700; color: var(--primary-color)">{{
               formatCurrency(item.total)
             }}</span>
-            <button
-              @click="$emit('delete', item.id)"
-              class="btn-icon-danger"
-              title="Hapus"
-            >
+            <button @click="$emit('delete', item.id)" class="btn-icon-danger" title="Hapus">
               <Trash2 :size="16" />
             </button>
           </div>
@@ -198,14 +171,14 @@ const form = reactive({
 })
 
 const partOptions = computed(() => {
-  return props.parts.map(p => ({
+  return props.parts.map((p) => ({
     value: p.id!,
     label: `${p.name} - ${formatCurrency(p.sell_price)}`
   }))
 })
 
 const onPartSelected = (id: number | string) => {
-  const part = props.parts.find(p => p.id === id)
+  const part = props.parts.find((p) => p.id === id)
   if (part) {
     form.desc = part.name
     form.costPrice = part.buy_price
@@ -230,7 +203,7 @@ const onItemTypeChange = () => {
 
 const addItem = async () => {
   emit('add', { ...form, price: form.price || 0, costPrice: form.costPrice || 0 })
-  
+
   // reset form after emit
   form.desc = ''
   form.costPrice = ''
