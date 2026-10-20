@@ -118,11 +118,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { Clock, Sun, Moon, Bell } from 'lucide-vue-next'
 import { useThemeStore } from '@/stores/theme'
+import { useAppCacheStore } from '@/stores/appCacheStore'
 import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 defineProps<{
   title?: string
@@ -134,6 +135,9 @@ let timer: ReturnType<typeof setInterval> | null = null
 
 const themeStore = useThemeStore()
 const { isDark } = storeToRefs(themeStore)
+const cacheStore = useAppCacheStore()
+const router = useRouter()
+const route = useRoute()
 
 const toggleTheme = () => {
   themeStore.toggleTheme()
@@ -156,8 +160,6 @@ const updateDateTime = () => {
     .replace(/\./g, ':') // Replace dot with colon for standard time format
 }
 
-const router = useRouter()
-
 const alerts = ref<
   Array<{
     id: number
@@ -173,6 +175,9 @@ let alertTimer: ReturnType<typeof setInterval> | null = null
 
 const toggleNotifications = () => {
   isNotificationOpen.value = !isNotificationOpen.value
+  if (isNotificationOpen.value) {
+    loadAlerts()
+  }
 }
 
 const goToService = (id: number) => {
@@ -196,6 +201,22 @@ const loadAlerts = async () => {
   }
 }
 
+// Auto-refresh alerts saat route berubah (misal kembali dari service detail ke halaman lain)
+watch(
+  () => route.fullPath,
+  () => {
+    loadAlerts()
+  }
+)
+
+// Auto-refresh alerts seketika saat data servis atau dashboard di-update di halaman manapun
+watch(
+  () => [cacheStore.services.hasCached, cacheStore.dashboard.hasCached],
+  () => {
+    loadAlerts()
+  }
+)
+
 const handleClickOutside = (event: MouseEvent) => {
   if (notificationRef.value && !notificationRef.value.contains(event.target as Node)) {
     isNotificationOpen.value = false
@@ -210,12 +231,14 @@ onMounted(() => {
   alertTimer = setInterval(loadAlerts, 60000) // update every minute
 
   document.addEventListener('click', handleClickOutside)
+  window.addEventListener('focus', loadAlerts)
 })
 
 onUnmounted(() => {
   if (timer) clearInterval(timer)
   if (alertTimer) clearInterval(alertTimer)
   document.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('focus', loadAlerts)
 })
 </script>
 

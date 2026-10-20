@@ -315,7 +315,9 @@ import {
 } from 'lucide-vue-next'
 import type { Settings } from '../../shared/types'
 import { Toast, AppAlert, ConfirmDialog } from '../utils/alert'
+import { useAppCacheStore } from '@/stores/appCacheStore'
 
+const cacheStore = useAppCacheStore()
 const dbSize = ref<string>('0 KB')
 
 const form = reactive<Settings>({
@@ -352,19 +354,26 @@ const loadSettings = async () => {
       form.sound_notification = String(settings.sound_notification) !== 'false'
       form.popup_notification = String(settings.popup_notification) !== 'false'
 
-      // Load DB Size
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if ((window.api as any).getDbSize) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const bytes = await (window.api as any).getDbSize()
-        if (bytes > 1024 * 1024) {
-          dbSize.value = (bytes / (1024 * 1024)).toFixed(2) + ' MB'
-        } else {
-          dbSize.value = (bytes / 1024).toFixed(2) + ' KB'
-        }
-      }
+      await loadDbSize()
     } catch (error) {
       console.error(error)
+    }
+  }
+}
+
+const loadDbSize = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if (window.api && (window.api as any).getDbSize) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const bytes = await (window.api as any).getDbSize()
+      if (bytes > 1024 * 1024) {
+        dbSize.value = (bytes / (1024 * 1024)).toFixed(2) + ' MB'
+      } else {
+        dbSize.value = (bytes / 1024).toFixed(2) + ' KB'
+      }
+    } catch (e) {
+      console.error('Failed to load DB size:', e)
     }
   }
 }
@@ -399,6 +408,7 @@ const backupData = async () => {
     const success = await window.api.backupDatabase()
     if (success) {
       Toast.fire({ icon: 'success', title: 'Backup database berhasil!' })
+      await loadDbSize()
     }
   } catch (error: unknown) {
     console.error(error)
@@ -428,6 +438,7 @@ const restoreData = async () => {
     try {
       const success = await window.api.restoreDatabase()
       if (success) {
+        cacheStore.invalidateAllCache()
         AppAlert.fire({
           icon: 'success',
           title: 'Restore Berhasil!',
@@ -446,9 +457,12 @@ const restoreData = async () => {
 
 onMounted(() => {
   loadSettings()
+  window.addEventListener('focus', loadDbSize)
 })
 
-onUnmounted(() => {})
+onUnmounted(() => {
+  window.removeEventListener('focus', loadDbSize)
+})
 </script>
 
 <style scoped>

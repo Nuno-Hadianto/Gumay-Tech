@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-D2aABDIb.js";var t,n=e((()=>{t={async getSettings(){if(!window.api?.getSettings)throw Error(`API not available`);return window.api.getSettings()},async updateSettings(e){if(!window.api?.updateSettings)throw Error(`API not available`);return window.api.updateSettings(e)}}}));export{n,t};

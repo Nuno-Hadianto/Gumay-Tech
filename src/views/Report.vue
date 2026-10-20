@@ -4,9 +4,19 @@
       <div class="filter-group">
         <Calendar class="calendar-icon" :size="18" />
         <span class="filter-label">Filter:</span>
-        <input type="date" v-model="startDate" class="form-control modern-date-input" />
+        <input
+          type="date"
+          v-model="startDate"
+          @change="generateReport"
+          class="form-control modern-date-input"
+        />
         <span class="filter-label">s/d</span>
-        <input type="date" v-model="endDate" class="form-control modern-date-input" />
+        <input
+          type="date"
+          v-model="endDate"
+          @change="generateReport"
+          class="form-control modern-date-input"
+        />
         <button @click="generateReport" class="btn btn-primary btn-generate">
           <Filter :size="16" /> Tampilkan
         </button>
@@ -144,10 +154,13 @@ import {
   Filter,
   Inbox
 } from 'lucide-vue-next'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import StatCard from '@/components/StatCard.vue'
 import type { ServiceOrder } from '../../shared/types'
 import { ReportService } from '@/services/ReportService'
+import { useAppCacheStore } from '@/stores/appCacheStore'
+
+const cacheStore = useAppCacheStore()
 
 const startDate = ref<string>('')
 const endDate = ref<string>('')
@@ -165,11 +178,27 @@ const formatCurrency = (val: number | string | undefined | null) =>
     minimumFractionDigits: 0
   }).format(Number(val || 0))
 
+// Auto-refresh laporan jika data transaksi/servis di-update di modul lain
+watch(
+  () => cacheStore.services.hasCached,
+  (hasCached) => {
+    if (!hasCached) {
+      generateReport()
+    }
+  }
+)
+
 onMounted(() => {
   const d = new Date()
   endDate.value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
   startDate.value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`
   generateReport()
+
+  window.addEventListener('focus', generateReport)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('focus', generateReport)
 })
 
 const generateReport = async () => {
