@@ -208,4 +208,23 @@ function registerMiscIpc(mainWindow) {
             return null;
         }
     });
+    electron_1.ipcMain.handle('get-signature-base64', async () => {
+        try {
+            let sigPath = path_1.default.join(__dirname, '..', '..', '..', 'public', 'img', 'tanda-tangan.png');
+            if (!fs_1.default.existsSync(sigPath) && electron_1.app) {
+                sigPath = path_1.default.join(electron_1.app.getAppPath(), 'public', 'img', 'tanda-tangan.png');
+            }
+            if (fs_1.default.existsSync(sigPath)) {
+                const ext = path_1.default.extname(sigPath).toLowerCase();
+                const mimeType = ext === '.png' ? 'image/png' : (ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' : 'image/png');
+                const bitmap = fs_1.default.readFileSync(sigPath);
+                return `data:${mimeType};base64,${bitmap.toString('base64')}`;
+            }
+            return null;
+        }
+        catch (error) {
+            electron_log_1.default.error('Failed to read signature:', error);
+            return null;
+        }
+    });
 }

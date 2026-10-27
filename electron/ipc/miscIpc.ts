@@ -191,6 +191,25 @@ function registerMiscIpc(mainWindow: BrowserWindow) {
       return null;
     }
   });
+
+  ipcMain.handle('get-signature-base64', async () => {
+    try {
+      let sigPath = path.join(__dirname, '..', '..', '..', 'public', 'img', 'tanda-tangan.png');
+      if (!fs.existsSync(sigPath) && app) {
+        sigPath = path.join(app.getAppPath(), 'public', 'img', 'tanda-tangan.png');
+      }
+      if (fs.existsSync(sigPath)) {
+        const ext = path.extname(sigPath).toLowerCase();
+        const mimeType = ext === '.png' ? 'image/png' : (ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' : 'image/png');
+        const bitmap = fs.readFileSync(sigPath);
+        return `data:${mimeType};base64,${bitmap.toString('base64')}`;
+      }
+      return null;
+    } catch (error: unknown) {
+      log.error('Failed to read signature:', error);
+      return null;
+    }
+  });
 }
 
 export {  registerMiscIpc  };

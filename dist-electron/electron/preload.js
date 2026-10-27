@@ -71,6 +71,7 @@ electron_1.contextBridge.exposeInMainWorld('api', {
     exportPdf: (data) => invokeSafe('export-pdf', data),
     openExternalUrl: (url) => invokeSafe('open-external-url', url),
     getLogoBase64: () => invokeSafe('get-logo-base64'),
+    getSignatureBase64: () => invokeSafe('get-signature-base64'),
     showNotification: (title, body) => invokeSafe('show-notification', { title, body }),
     // Print & Preview
     printPreview: (options) => invokeSafe('print-preview', options),

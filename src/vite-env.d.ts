@@ -129,6 +129,7 @@ declare global {
       }) => Promise<{ success: boolean; filePath?: string; canceled?: boolean; error?: string }>
       openExternalUrl: (url: string) => Promise<boolean>
       getLogoBase64: () => Promise<string | null>
+      getSignatureBase64: () => Promise<string | null>
       printPreview: (options?: Record<string, unknown>) => Promise<boolean>
 
       // Keranjang Sampah (Recycle Bin)

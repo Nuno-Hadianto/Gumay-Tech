@@ -358,7 +358,9 @@ const deletePayment = async (paymentId: number) => {
 const getCommonData = async () => {
   const settings = (await SettingsService.getSettings()) as Settings
   const logoBase64 = window.api && window.api.getLogoBase64 ? await window.api.getLogoBase64() : ''
-  return { settings, logoBase64 }
+  const signatureBase64 =
+    window.api && window.api.getSignatureBase64 ? await window.api.getSignatureBase64() : ''
+  return { settings, logoBase64, signatureBase64 }
 }
 
 const sendWhatsApp = () => {
@@ -401,8 +403,8 @@ const confirmSendWa = (finalMessage: string) => {
 const printNota = async () => {
   if (!service.value) return
   try {
-    const { settings, logoBase64 } = await getCommonData()
-    const html = generateNotaHtml(settings, service.value, logoBase64)
+    const { settings, logoBase64, signatureBase64 } = await getCommonData()
+    const html = generateNotaHtml(settings, service.value, logoBase64, signatureBase64)
     await printHtml(html, true) // landscape for nota
   } catch (error: unknown) {
     console.error(error)
@@ -414,13 +416,14 @@ const printNota = async () => {
 const printReceipt = async () => {
   if (!service.value) return
   try {
-    const { settings, logoBase64 } = await getCommonData()
+    const { settings, logoBase64, signatureBase64 } = await getCommonData()
     const html = generateInvoiceHtml(
       settings,
       service.value,
       items.value,
       payments.value,
-      logoBase64
+      logoBase64,
+      signatureBase64
     )
     await printHtml(html, false) // portrait for invoice
   } catch (error: unknown) {

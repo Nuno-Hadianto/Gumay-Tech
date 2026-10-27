@@ -14,9 +14,13 @@ const formatDateSafe = (dateStr?: string | null): string => {
 export const generateNotaHtml = (
   settings: Partial<Settings> | null,
   service: Partial<ServiceOrder> | null,
-  logoBase64: string | null
+  logoBase64: string | null,
+  signatureBase64?: string | null
 ) => {
   settings = settings || {}
+  const sigHtml = signatureBase64
+    ? `<img src="${signatureBase64}" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`
+    : `<img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`
   return `
         <div class="print-nota nota-wrapper">
             <!-- Header -->
@@ -107,7 +111,7 @@ export const generateNotaHtml = (
                 
                 <div class="nota-sig-box">
                     <div class="nota-sig-title">Hormat Kami,</div>
-                    <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
+                    ${sigHtml}
                     <div class="nota-sig-line">${settings.business_name || 'Toko'}</div>
                 </div>
                 
@@ -125,9 +129,13 @@ export const generateInvoiceHtml = (
   service: Partial<ServiceOrder>,
   items: Partial<ServiceItem>[] | null,
   payments: Partial<Payment>[] | null,
-  logoBase64: string | null
+  logoBase64: string | null,
+  signatureBase64?: string | null
 ) => {
   settings = settings || {}
+  const sigHtml = signatureBase64
+    ? `<img src="${signatureBase64}" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`
+    : `<img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`
   const formatRp = (val: number | string | undefined | null) =>
     new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -243,7 +251,7 @@ export const generateInvoiceHtml = (
                 </div>
                 <div class="inv-sig-col">
                     <div class="nota-sig-title">Hormat Kami</div>
-                    <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
+                    ${sigHtml}
                     <div class="nota-sig-line">${settings.business_name || 'NUNOX'}</div>
                 </div>
             </div>
