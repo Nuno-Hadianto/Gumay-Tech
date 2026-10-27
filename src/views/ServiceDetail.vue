@@ -60,7 +60,7 @@ import { ServiceItemSchema, PaymentSchema } from '@/utils/validators'
 import { ServiceOrderService } from '@/services/ServiceOrderService'
 import { PartService } from '@/services/PartService'
 import { SettingsService } from '@/services/SettingsService'
-import { generateInvoiceHtml, generateNotaHtml, printHtml } from '../utils/printUtils.js'
+import { generateInvoiceHtml, generateNotaHtml, printHtml } from '@/utils/printUtils'
 import { Toast, AppAlert, ConfirmDialog } from '@/utils/alert'
 import { useAppCacheStore } from '@/stores/appCacheStore'
 

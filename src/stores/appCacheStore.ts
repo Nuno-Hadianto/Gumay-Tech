@@ -28,7 +28,10 @@ export const useAppCacheStore = defineStore('appCache', {
     dashboard: {
       stats: null as DashboardStats | null,
       hasCached: false
-    }
+    },
+
+    // Counter untuk mentrigger reaktivitas komponen global (misal Topbar alert) secara andal
+    invalidationCounter: 0
   }),
   actions: {
     setCustomerCache(data: Customer[], total: number) {
@@ -57,18 +60,23 @@ export const useAppCacheStore = defineStore('appCache', {
     },
     invalidateCustomerCache() {
       this.customers.hasCached = false
+      this.invalidationCounter++
     },
     invalidateDeviceCache() {
       this.devices.hasCached = false
+      this.invalidationCounter++
     },
     invalidateServiceCache() {
       this.services.hasCached = false
+      this.invalidationCounter++
     },
     invalidatePartCache() {
       this.parts.hasCached = false
+      this.invalidationCounter++
     },
     invalidateDashboardCache() {
       this.dashboard.hasCached = false
+      this.invalidationCounter++
     },
     invalidateAllCache() {
       this.customers.hasCached = false
@@ -76,6 +84,7 @@ export const useAppCacheStore = defineStore('appCache', {
       this.services.hasCached = false
       this.parts.hasCached = false
       this.dashboard.hasCached = false
+      this.invalidationCounter++
     }
   }
 })

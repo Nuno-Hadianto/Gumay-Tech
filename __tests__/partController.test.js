@@ -1,5 +1,6 @@
-import db from '../database/db';
-import * as partController from '../controllers/partController';
+/* eslint-disable @typescript-eslint/no-require-imports */
+const db = require('../database/db').default;
+const partController = require('../controllers/partController');
 
 describe('partController (White-box testing)', () => {
     // Clear all parts before testing

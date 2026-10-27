@@ -1,5 +1,16 @@
 import type { Settings, ServiceOrder, ServiceItem, Payment } from '../../shared/types'
 
+const formatDateSafe = (dateStr?: string | null): string => {
+  if (!dateStr) return '-'
+  try {
+    const normalized = dateStr.endsWith('Z') ? dateStr : `${dateStr.replace(' ', 'T')}Z`
+    const d = new Date(normalized)
+    return isNaN(d.getTime()) ? new Date(dateStr).toLocaleDateString('id-ID') : d.toLocaleDateString('id-ID')
+  } catch {
+    return dateStr
+  }
+}
+
 export const generateNotaHtml = (
   settings: Partial<Settings> | null,
   service: Partial<ServiceOrder> | null,
@@ -21,7 +32,7 @@ export const generateNotaHtml = (
                 <div class="nota-header-right">
                     <h1 class="nota-title">TANDA TERIMA</h1>
                     <div class="nota-no"><strong>No:</strong> ${service ? service.ticket_number : '...................................'}</div>
-                    <div class="nota-date">Tanggal: ${service ? new Date(service.created_at + 'Z').toLocaleDateString('id-ID') : '...................................'}</div>
+                    <div class="nota-date">Tanggal: ${service ? formatDateSafe(service.created_at) : '...................................'}</div>
                 </div>
             </div>
             
@@ -242,8 +253,7 @@ export const generateInvoiceHtml = (
 
 export const printHtml = async (
   html: string,
-  landscape: boolean = false,
-  isThermal: boolean = false
+  landscape: boolean = false
 ) => {
   const printArea = document.getElementById('print-area')
   if (printArea) {
@@ -269,19 +279,15 @@ export const printHtml = async (
       styleTag.id = 'dynamic-print-style'
       document.head.appendChild(styleTag)
     }
-    if (isThermal) {
-      styleTag.innerHTML = '@media print { @page { size: 58mm auto; margin: 0; } }'
-    } else {
-      styleTag.innerHTML = landscape
-        ? '@media print { @page { size: A5 landscape; } }'
-        : '@media print { @page { size: A4 portrait; } }'
-    }
+    styleTag.innerHTML = landscape
+      ? '@media print { @page { size: A5 landscape; } }'
+      : '@media print { @page { size: A4 portrait; } }'
 
     if (window.api && window.api.printPreview) {
       try {
-        const pdfOptions: Record<string, boolean | string> = { landscape: landscape && !isThermal }
-        if (!isThermal) {
-          pdfOptions.pageSize = landscape ? 'A5' : 'A4'
+        const pdfOptions: Record<string, boolean | string> = {
+          landscape,
+          pageSize: landscape ? 'A5' : 'A4'
         }
         await window.api.printPreview(pdfOptions)
       } catch (err) {
@@ -303,105 +309,3 @@ export const exportHtmlToPdf = async (html: string, filename: string) => {
   return { success: false, error: 'API exportPdf not found' }
 }
 
-export const generateThermalNotaHtml = (
-  settings: Partial<Settings> | null,
-  service: Partial<ServiceOrder> | null,
-  logoBase64: string | null
-) => {
-  settings = settings || {}
-  return `
-        <div class="print-thermal">
-            <!-- Header -->
-            <div class="thm-center">
-                ${logoBase64 ? `<img src="${logoBase64}" alt="Logo" class="thm-logo" />` : ''}
-                <div class="thm-bold thm-biz-name">${settings.business_name || 'NUNOX SERVIS'}</div>
-                <div class="thm-biz-sub">📍 ${settings.address || ''}</div>
-                <div class="thm-biz-sub">WA: ${settings.whatsapp || settings.phone || ''}</div>
-            </div>
-            
-            <div class="thm-dashed"></div>
-            
-            <div class="thm-center thm-bold thm-title">TANDA TERIMA</div>
-            
-            <div class="thm-row">
-                <span class="thm-label">No:</span>
-                <span class="thm-val thm-bold">${service ? service.ticket_number : '-'}</span>
-            </div>
-            <div class="thm-row">
-                <span class="thm-label">Tgl:</span>
-                <span class="thm-val">${service ? new Date(service.created_at + 'Z').toLocaleDateString('id-ID') : '-'}</span>
-            </div>
-            
-            <div class="thm-dashed"></div>
-            
-            <div class="thm-bold thm-section-title">PELANGGAN:</div>
-            <div>${service ? service.customer_name : '-'}</div>
-            <div>${service ? service.customer_phone || '' : ''}</div>
-            
-            <div class="thm-dashed"></div>
-            
-            <div class="thm-bold thm-section-title">PERANGKAT:</div>
-            <div>${service ? service.device_type : '-'}</div>
-            <div>${service ? (service.brand || '') + ' ' + (service.model || '') : '-'}</div>
-            <div class="thm-row" style="margin-top: 2px;">
-                <span class="thm-label">SN:</span>
-                <span class="thm-val">${service ? service.serial_number || '-' : '-'}</span>
-            </div>
-            
-            <div class="thm-dashed"></div>
-            
-            ${(() => {
-              let out = ''
-              const txt = service?.customer_complaint || ''
-              const sep = '\\n\\n[Kelengkapan & Kondisi Fisik]:\\n'
-              const idx = txt.indexOf(sep)
-              if (idx !== -1) {
-                out += `
-                        <div class="thm-bold thm-section-title">KELUHAN:</div>
-                        <div class="thm-text" style="white-space: pre-wrap;">${txt.substring(0, idx)}</div>
-                    `
-                if (!service?.accessories && !service?.physical_condition) {
-                  out += `
-                            <br/>
-                            <div class="thm-bold thm-section-title" style="margin-top: 5px;">KELENGKAPAN (Lama):</div>
-                            <div class="thm-text" style="white-space: pre-wrap;">${txt.substring(idx + sep.length)}</div>
-                        `
-                }
-              } else {
-                out += `
-                        <div class="thm-bold thm-section-title">KELUHAN:</div>
-                        <div class="thm-text" style="white-space: pre-wrap;">${txt}</div>
-                    `
-              }
-
-              if (service?.physical_condition) {
-                out += `
-                        <br/>
-                        <div class="thm-bold thm-section-title" style="margin-top: 5px;">KONDISI FISIK:</div>
-                        <div class="thm-text" style="white-space: pre-wrap;">${service.physical_condition}</div>
-                    `
-              }
-
-              return out
-            })()}
-            
-            <div class="thm-dashed"></div>
-            
-            <div class="thm-bold thm-section-title">KELENGKAPAN:</div>
-            <div class="thm-text-sm">${service?.accessories ? service.accessories : '-'}</div>
-            
-            <div class="thm-dashed"></div>
-            
-            <div class="thm-center thm-sig">
-                <div>Hormat Kami,</div>
-                <img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />
-                <div>( .................... )</div>
-            </div>
-            
-            <div class="thm-center thm-footer">
-                * Harap bawa struk ini saat mengambil barang.
-            </div>
-            <div class="thm-gap"></div> <!-- Extra space for tearing -->
-        </div>
-    `
-}

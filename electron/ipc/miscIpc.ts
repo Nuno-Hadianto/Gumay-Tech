@@ -147,6 +147,7 @@ function registerMiscIpc(mainWindow: BrowserWindow) {
       const pdfOptions: Record<string, unknown> = {
         printBackground: true,
         landscape: options.landscape || false,
+        preferCSSPageSize: true,
         marginsType: 1
       };
       if (options.pageSize) {
@@ -174,7 +175,10 @@ function registerMiscIpc(mainWindow: BrowserWindow) {
 
   ipcMain.handle('get-logo-base64', async () => {
     try {
-      const logoPath = path.join(__dirname, '..', '..', '..', 'public', 'img', 'logo.png');
+      let logoPath = path.join(__dirname, '..', '..', '..', 'public', 'img', 'logo.png');
+      if (!fs.existsSync(logoPath) && app) {
+        logoPath = path.join(app.getAppPath(), 'public', 'img', 'logo.png');
+      }
       if (fs.existsSync(logoPath)) {
         const ext = path.extname(logoPath).toLowerCase();
         const mimeType = ext === '.png' ? 'image/png' : (ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' : 'image/png');

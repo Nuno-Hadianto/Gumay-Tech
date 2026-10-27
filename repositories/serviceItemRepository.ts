@@ -28,12 +28,12 @@ function addServiceItem(data: ServiceItem) {
 
     const total = quantity * price;
 
-    let cost_price = data.cost_price || 0;
+    let cost_price = (data.cost_price || 0) * (quantity || 1);
     if (item_type === 'Sparepart' && spare_part_id) {
         const part = db.drizzle.select({ buy_price: spareParts.buy_price })
             .from(spareParts).where(eq(spareParts.id, spare_part_id)).get();
         if (part) {
-            cost_price = part.buy_price * quantity;
+            cost_price = (part.buy_price || 0) * quantity;
         }
     }
 

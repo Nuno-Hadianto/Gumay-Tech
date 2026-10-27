@@ -39,6 +39,7 @@
     display: none !important;
   }
 
+
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -527,64 +528,5 @@
   font-style: italic;
 }
 
-/* === THERMAL (58mm) === */
-.print-thermal {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 12px;
-  line-height: 1.2;
-  color: #000;
-  max-width: 58mm;
-  margin: 0 auto;
-}
-.thm-center {
-  text-align: center;
-}
-.thm-logo {
-  max-width: 40mm;
-  margin-bottom: 5px;
-}
-.thm-bold {
-  font-weight: bold;
-}
-.thm-biz-name {
-  font-size: 14px;
-}
-.thm-biz-sub {
-  font-size: 11px;
-}
-.thm-dashed {
-  border-top: 1px dashed #000;
-  margin: 8px 0;
-}
-.thm-title {
-  font-size: 14px;
-  margin: 5px 0;
-}
-.thm-row {
-  display: flex;
-  justify-content: space-between;
-}
-.thm-label {
-  width: 30px;
-}
-.thm-val {
-  flex: 1;
-  text-align: right;
-}
-.thm-section-title {
-  margin-bottom: 3px;
-}
-.thm-text-sm {
-  font-size: 11px;
-}
-.thm-sig {
-  margin-top: 15px;
-}
-.thm-footer {
-  font-size: 10px;
-  margin-top: 15px;
-}
-.thm-gap {
-  height: 20px;
-}
+
 

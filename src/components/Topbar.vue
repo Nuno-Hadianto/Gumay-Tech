@@ -75,14 +75,7 @@
               v-for="alert in alerts"
               :key="alert.id"
               @click="goToService(alert.id)"
-              style="
-                padding: 12px 15px;
-                border-bottom: 1px solid var(--border-color);
-                cursor: pointer;
-                transition: background 0.2s;
-              "
-              onmouseover="this.style.background = 'rgba(128, 128, 128, 0.15)'"
-              onmouseout="this.style.background = 'transparent'"
+              class="notification-item"
             >
               <div
                 style="
@@ -211,7 +204,7 @@ watch(
 
 // Auto-refresh alerts seketika saat data servis atau dashboard di-update di halaman manapun
 watch(
-  () => [cacheStore.services.hasCached, cacheStore.dashboard.hasCached],
+  () => [cacheStore.invalidationCounter, cacheStore.services.hasCached, cacheStore.dashboard.hasCached],
   () => {
     loadAlerts()
   }
@@ -319,5 +312,16 @@ onUnmounted(() => {
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
   border-color: var(--primary);
   background: rgba(99, 102, 241, 0.05);
+}
+
+.notification-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.notification-item:hover {
+  background: rgba(128, 128, 128, 0.15);
 }
 </style>

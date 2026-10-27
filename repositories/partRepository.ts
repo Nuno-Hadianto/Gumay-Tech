@@ -44,8 +44,9 @@ function getPartById(id: number | string) {
 function addPart(data: Omit<Part, 'id'>) {
     return db.transaction(() => {
         const { part_code, name, category, buy_price, sell_price } = data as Part;
+        const normalizedCode = (part_code && typeof part_code === 'string' && part_code.trim() !== '') ? part_code.trim() : null;
         const result = db.drizzle.insert(spareParts).values({
-            part_code, name, category, buy_price, sell_price
+            part_code: normalizedCode, name, category, buy_price, sell_price
         }).run();
         const partId = result.lastInsertRowid;
         
@@ -56,9 +57,10 @@ function addPart(data: Omit<Part, 'id'>) {
 function updatePart(id: number | string, data: Omit<Part, 'id'>) {
     return db.transaction(() => {
         const { part_code, name, category, buy_price, sell_price } = data as Part;
+        const normalizedCode = (part_code && typeof part_code === 'string' && part_code.trim() !== '') ? part_code.trim() : null;
         
         db.drizzle.update(spareParts).set({
-            part_code, name, category, buy_price, sell_price, updated_at: sql`CURRENT_TIMESTAMP`
+            part_code: normalizedCode, name, category, buy_price, sell_price, updated_at: sql`CURRENT_TIMESTAMP`
         }).where(eq(spareParts.id, Number(id))).run();
         
         return true;

@@ -163,6 +163,7 @@ function registerMiscIpc(mainWindow) {
             const pdfOptions = {
                 printBackground: true,
                 landscape: options.landscape || false,
+                preferCSSPageSize: true,
                 marginsType: 1
             };
             if (options.pageSize) {
@@ -190,7 +191,10 @@ function registerMiscIpc(mainWindow) {
     });
     electron_1.ipcMain.handle('get-logo-base64', async () => {
         try {
-            const logoPath = path_1.default.join(__dirname, '..', '..', '..', 'public', 'img', 'logo.png');
+            let logoPath = path_1.default.join(__dirname, '..', '..', '..', 'public', 'img', 'logo.png');
+            if (!fs_1.default.existsSync(logoPath) && electron_1.app) {
+                logoPath = path_1.default.join(electron_1.app.getAppPath(), 'public', 'img', 'logo.png');
+            }
             if (fs_1.default.existsSync(logoPath)) {
                 const ext = path_1.default.extname(logoPath).toLowerCase();
                 const mimeType = ext === '.png' ? 'image/png' : (ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' : 'image/png');

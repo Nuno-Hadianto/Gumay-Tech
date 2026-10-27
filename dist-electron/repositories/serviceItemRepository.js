@@ -64,12 +64,12 @@ function getServiceItems(serviceOrderId) {
 function addServiceItem(data) {
     const { service_order_id, item_type, spare_part_id, description, quantity, price } = data;
     const total = quantity * price;
-    let cost_price = data.cost_price || 0;
+    let cost_price = (data.cost_price || 0) * (quantity || 1);
     if (item_type === 'Sparepart' && spare_part_id) {
         const part = db_1.default.drizzle.select({ buy_price: drizzleSchema_1.spareParts.buy_price })
             .from(drizzleSchema_1.spareParts).where((0, drizzle_orm_1.eq)(drizzleSchema_1.spareParts.id, spare_part_id)).get();
         if (part) {
-            cost_price = part.buy_price * quantity;
+            cost_price = (part.buy_price || 0) * quantity;
         }
     }
     return db_1.default.transaction(() => {
