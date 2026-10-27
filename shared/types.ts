@@ -148,7 +148,6 @@ export interface Settings {
   auto_backup_path?: string;
 
   wa_template_status?: string;
-  default_printer?: string;
   primary_color?: string;
   sound_notification?: boolean;
   popup_notification?: boolean;
