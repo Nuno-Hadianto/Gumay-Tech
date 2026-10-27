@@ -165,15 +165,13 @@ const loadSettings = async () => {
 const saveUpdate = async (updateForm: {
   diagnosis_result: string
   actions_taken: string
-  technician_notes: string
   status: string
 }) => {
   if (!service.value) return
   try {
     const data = {
       diagnosis_result: updateForm.diagnosis_result,
-      actions_taken: updateForm.actions_taken,
-      technician_notes: updateForm.technician_notes
+      actions_taken: updateForm.actions_taken
     }
     await ServiceOrderService.updateDetails(service.value.id as number, data)
 

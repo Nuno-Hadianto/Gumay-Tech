@@ -80,22 +80,6 @@
           </div>
         </div>
       </div>
-      <div class="form-group" style="margin: 0">
-        <label style="font-size: 0.85rem">Catatan Internal (Teknisi)</label>
-        <textarea
-          v-model="form.technician_notes"
-          rows="2"
-          class="form-control"
-          placeholder="Catatan ini tidak muncul di struk"
-          style="
-            padding: 10px;
-            border-radius: var(--radius-sm);
-            resize: vertical;
-            width: 100%;
-            box-sizing: border-box;
-          "
-        ></textarea>
-      </div>
       <button
         class="btn btn-primary"
         @click="saveUpdate"
@@ -122,8 +106,7 @@ const emit = defineEmits(['save'])
 const form = reactive({
   status: '',
   diagnosis_result: '',
-  actions_taken: '',
-  technician_notes: ''
+  actions_taken: ''
 })
 
 // Initialize form when service data changes
@@ -134,7 +117,6 @@ watch(
       form.status = newService.service_status
       form.diagnosis_result = newService.diagnosis_result || ''
       form.actions_taken = newService.actions_taken || ''
-      form.technician_notes = newService.technician_notes || ''
     }
   },
   { immediate: true }
