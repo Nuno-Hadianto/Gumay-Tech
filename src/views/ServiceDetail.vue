@@ -11,7 +11,7 @@
       <div class="dashboard-grid">
         <div class="card" style="padding: 25px">
           <ServiceInfo :service="service" />
-          <ServiceStatusUpdate :service="service" @save="saveUpdate" />
+          <ServiceStatusUpdate :service="service" :remaining-bill="remainingBill" @save="saveUpdate" />
           <ServiceHistory :history="history" />
         </div>
 
@@ -48,13 +48,14 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-import type {
-  ServiceOrder,
-  ServiceHistory as ServiceHistoryType,
-  ServiceItem as ServiceItemType,
-  Payment,
-  Part,
-  Settings
+import {
+  ServiceStatus,
+  type ServiceOrder,
+  type ServiceHistory as ServiceHistoryType,
+  type ServiceItem as ServiceItemType,
+  type Payment,
+  type Part,
+  type Settings
 } from '../../shared/types'
 import { ServiceItemSchema, PaymentSchema } from '@/utils/validators'
 import { ServiceOrderService } from '@/services/ServiceOrderService'
@@ -168,6 +169,40 @@ const saveUpdate = async (updateForm: {
   status: string
 }) => {
   if (!service.value) return
+
+  // Validasi jika status diubah menjadi "Sudah Diambil" tapi tagihan belum lunas
+  if (
+    updateForm.status !== service.value.service_status &&
+    (updateForm.status === ServiceStatus.SELESAI_SUDAH_DIAMBIL ||
+      updateForm.status.includes('Sudah Diambil')) &&
+    remainingBill.value > 0
+  ) {
+    const result = await ConfirmDialog.fire({
+      title: 'Perangkat Belum Lunas!',
+      html: `
+        <div style="text-align: center; margin-top: 5px;">
+          <p style="margin-bottom: 10px; font-size: 0.95rem; color: var(--text-secondary);">
+            Perangkat ini masih memiliki sisa tagihan yang belum dibayar:
+          </p>
+          <div style="font-size: 1.4rem; font-weight: 700; color: #ef4444; margin-bottom: 15px; background: rgba(239, 68, 68, 0.1); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);">
+            ${formatCurrency(remainingBill.value)}
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-primary); line-height: 1.4;">
+            Apakah unit tetap ingin diserahkan kepada pelanggan dan status diubah menjadi <b>Sudah Diambil</b>?
+          </p>
+        </div>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, Tetap Serahkan',
+      cancelButtonText: 'Batal'
+    })
+
+    if (!result.isConfirmed) {
+      return
+    }
+  }
+
   try {
     const data = {
       diagnosis_result: updateForm.diagnosis_result,

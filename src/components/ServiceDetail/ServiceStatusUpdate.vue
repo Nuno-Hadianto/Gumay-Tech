@@ -28,6 +28,27 @@
           <option :value="ServiceStatus.SELESAI_SUDAH_DIAMBIL">Selesai (Sudah Diambil)</option>
           <option :value="ServiceStatus.BATAL">Batal</option>
         </select>
+        <div
+          v-if="form.status === ServiceStatus.SELESAI_SUDAH_DIAMBIL && (remainingBill || 0) > 0"
+          style="
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid #f59e0b;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            color: #d97706;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          "
+        >
+          <AlertCircle :size="16" style="flex-shrink: 0" />
+          <span>
+            <b>Catatan Kasir:</b> Perangkat masih memiliki sisa tagihan sebesar
+            <strong style="color: #b45309">{{ formatCurrency(remainingBill) }}</strong> (belum lunas).
+          </span>
+        </div>
       </div>
       <div class="form-group" style="margin: 0">
         <label
@@ -93,13 +114,22 @@
 
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
-import { Save, ClipboardEdit } from 'lucide-vue-next'
+import { Save, ClipboardEdit, AlertCircle } from 'lucide-vue-next'
 import type { ServiceOrder } from '../../../shared/types'
 import { ServiceStatus } from '../../../shared/types'
 
 const props = defineProps<{
   service: ServiceOrder
+  remainingBill?: number
 }>()
+
+const formatCurrency = (amount: number | string | undefined | null) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0
+  }).format(Number(amount || 0))
+}
 
 const emit = defineEmits(['save'])
 
