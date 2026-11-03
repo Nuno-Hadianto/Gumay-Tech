@@ -87,7 +87,7 @@
       <div class="settings-column">
         <div class="card settings-card">
           <h2 class="settings-header">
-            <Cloud :size="20" style="color: var(--primary)" /> Auto-Backup (Cloud/Folder)
+            <Cloud :size="20" style="color: var(--primary)" /> Auto-Backup
           </h2>
           <div class="info-box success-box">
             <div
@@ -98,8 +98,7 @@
                 margin-bottom: 20px;
               "
             >
-              Pilih lokasi folder untuk menyimpan cadangan data (seperti
-              <strong>Google Drive</strong> atau <strong>OneDrive</strong>).
+              Pilih lokasi folder untuk menyimpan cadangan data.
 
               <div style="margin-top: 10px; margin-bottom: 12px; color: var(--text-primary)">
                 <strong>Jadwal Backup Otomatis:</strong>
