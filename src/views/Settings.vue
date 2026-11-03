@@ -81,44 +81,6 @@
             </div>
           </form>
         </div>
-
-        <!-- Pengaturan Notifikasi -->
-        <div class="card settings-card">
-          <h2 class="settings-header">
-            <Bell :size="20" style="color: var(--primary)" /> Pengaturan Notifikasi
-          </h2>
-          <form @submit.prevent="saveSettings">
-            <div class="form-group" style="display: flex; flex-direction: column; gap: 15px">
-              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
-                <input
-                  type="checkbox"
-                  v-model="form.sound_notification"
-                  style="width: 18px; height: 18px; cursor: pointer"
-                />
-                <span style="color: var(--text-primary); font-size: 0.95rem"
-                  >Bunyikan suara saat ada peringatan <i>Follow-up</i> baru</span
-                >
-              </label>
-
-              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
-                <input
-                  type="checkbox"
-                  v-model="form.popup_notification"
-                  style="width: 18px; height: 18px; cursor: pointer"
-                />
-                <span style="color: var(--text-primary); font-size: 0.95rem"
-                  >Tampilkan <i>pop-up</i> notifikasi di layar</span
-                >
-              </label>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary settings-btn">
-                <Save :size="16" /> Simpan Notifikasi
-              </button>
-            </div>
-          </form>
-        </div>
       </div>
 
       <!-- Kolom Kanan -->
@@ -310,8 +272,7 @@ import {
   HardDrive,
   Download,
   RefreshCw,
-  Database,
-  Bell
+  Database
 } from 'lucide-vue-next'
 import type { Settings } from '../../shared/types'
 import { Toast, AppAlert, ConfirmDialog } from '../utils/alert'
@@ -325,9 +286,7 @@ const form = reactive<Settings>({
   phone: '',
   address: '',
   auto_backup_path: '',
-  wa_template_status: '',
-  sound_notification: true,
-  popup_notification: true
+  wa_template_status: ''
 })
 
 const waPreviewText = computed(() => {
@@ -350,9 +309,6 @@ const loadSettings = async () => {
       form.wa_template_status =
         settings.wa_template_status ||
         'Halo Kak {nama}, perangkat Anda dengan No Tiket *{tiket}* saat ini berstatus: *{status}*. Mohon konfirmasinya. Terima kasih.'
-
-      form.sound_notification = String(settings.sound_notification) !== 'false'
-      form.popup_notification = String(settings.popup_notification) !== 'false'
 
       await loadDbSize()
     } catch (error) {
@@ -386,9 +342,7 @@ const saveSettings = async () => {
       whatsapp: form.phone,
       address: form.address,
       auto_backup_path: form.auto_backup_path,
-      wa_template_status: form.wa_template_status,
-      sound_notification: form.sound_notification,
-      popup_notification: form.popup_notification
+      wa_template_status: form.wa_template_status
     }
     await window.api.updateSettings(data)
 
