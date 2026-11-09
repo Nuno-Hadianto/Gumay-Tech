@@ -5,6 +5,6 @@ export default defineConfig({
   out: './database/migrations',
   dialect: 'sqlite',
   dbCredentials: {
-    url: './database/nunox_servis.db',
+    url: './database/gumay_tech.db',
   },
 });

@@ -12,15 +12,15 @@ function seedDefaultSettings() {
       log.info('Seeding default settings...');
       const insertDefaultSettings = `
         INSERT OR IGNORE INTO settings (key, value) VALUES 
-        ('business_name', 'NUNOX_SERVIS'),
-        ('app_name', 'nuNox_servis'),
+        ('business_name', 'GUMAY TECH'),
+        ('app_name', 'Gumay Tech'),
         ('business_type', 'Laptop & Computer Service'),
         ('owner_name', ''),
         ('phone', ''),
         ('whatsapp', ''),
         ('address', ''),
         ('email', ''),
-        ('receipt_footer', 'Terima kasih telah menggunakan jasa NUNOX_SERVIS.'),
+        ('receipt_footer', 'Terima kasih telah menggunakan jasa Gumay Tech.'),
         ('wa_template_status', 'Halo Kak {nama}, perangkat Anda dengan No Tiket *{tiket}* saat ini berstatus: *{status}*. Mohon konfirmasinya. Terima kasih.');
       `;
       db.exec(insertDefaultSettings);

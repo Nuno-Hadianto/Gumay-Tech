@@ -1,6 +1,6 @@
 # Diagram Skema Database (ERD)
 
-Aplikasi **nuNox Servis** menggunakan **SQLite** sebagai database lokal, yang diorkestrasikan menggunakan **Drizzle ORM** untuk menjamin *Type-Safety*.
+Aplikasi **Gumay Tech** menggunakan **SQLite** sebagai database lokal, yang diorkestrasikan menggunakan **Drizzle ORM** untuk menjamin *Type-Safety*.
 Di bawah ini adalah ilustrasi **Entity Relationship Diagram (ERD)** dari skema database:
 
 ```mermaid

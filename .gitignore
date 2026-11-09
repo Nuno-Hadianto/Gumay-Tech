@@ -2,5 +2,5 @@ node_modules/
 dist/
 .DS_Store
 *.log
-nunoxdesk.db
+gumay_tech.db
 *.db

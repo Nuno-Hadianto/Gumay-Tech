@@ -40,7 +40,7 @@ function createWindow() {
     height: 800,
     minWidth: 900,
     minHeight: 600,
-    title: 'nuNox_servis - NUNOX_SERVIS',
+    title: 'Gumay Tech',
     icon: path.join(__dirname, '..', '..', 'public', 'img', 'icon.png'),
     autoHideMenuBar: true,
     show: false,
@@ -141,7 +141,7 @@ async function performAutoBackup(type: 'cron' | 'daily' = 'daily') {
   try {
 
     
-    const dbPath = path.join(app.getPath('userData'), 'database', 'nunox_servis.db');
+    const dbPath = path.join(app.getPath('userData'), 'database', 'gumay_tech.db');
 
     const settings = settingsRepo.getSettings();
     
@@ -149,7 +149,7 @@ async function performAutoBackup(type: 'cron' | 'daily' = 'daily') {
     
     // Fallback to default if no auto_backup_path is set
     if (!backupDir) {
-      backupDir = path.join(app.getPath('documents'), 'nuNox_servis_Backups');
+      backupDir = path.join(app.getPath('documents'), 'Gumay_Tech_Backups');
     }
     
     if (!fs.existsSync(backupDir)) {
@@ -166,8 +166,8 @@ async function performAutoBackup(type: 'cron' | 'daily' = 'daily') {
       fileNameSuffix = `${hours}-${minutes}`;
     }
     
-    const backupPathDb = path.join(backupDir, `AutoBackup_NuNox_${dateStr}_${fileNameSuffix}.db`);
-    const backupPathZip = path.join(backupDir, `AutoBackup_NuNox_${dateStr}_${fileNameSuffix}.zip`);
+    const backupPathDb = path.join(backupDir, `AutoBackup_GumayTech_${dateStr}_${fileNameSuffix}.db`);
+    const backupPathZip = path.join(backupDir, `AutoBackup_GumayTech_${dateStr}_${fileNameSuffix}.zip`);
     
     if (fs.existsSync(dbPath)) {
       // Create raw backup

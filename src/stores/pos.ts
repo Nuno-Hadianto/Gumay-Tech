@@ -40,7 +40,7 @@ export const usePosStore = defineStore('pos', () => {
         name: part.name,
         price: part.sell_price,
         qty: 1,
-        maxStock: 999 // Part does not have stock property yet in nuNox_servis
+        maxStock: 999 // Part does not have stock property yet in Gumay Tech
       })
     }
   }

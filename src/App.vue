@@ -48,7 +48,7 @@ const handleGlobalKeydown = async (e: KeyboardEvent) => {
 }
 
 const pageTitle = computed<string>(() => {
-  return (route.meta.title as string) || 'nuNox_servis'
+  return (route.meta.title as string) || 'Gumay Tech'
 })
 
 onMounted(() => {

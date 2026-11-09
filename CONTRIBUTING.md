@@ -1,6 +1,6 @@
 # Panduan Kontribusi (Contributing Guidelines)
 
-Terima kasih telah tertarik untuk berkontribusi pada **nuNox_servis**! Kami menyambut baik segala bentuk kontribusi, mulai dari perbaikan bug, penambahan fitur, hingga perbaikan dokumentasi.
+Terima kasih telah tertarik untuk berkontribusi pada **Gumay Tech**! Kami menyambut baik segala bentuk kontribusi, mulai dari perbaikan bug, penambahan fitur, hingga perbaikan dokumentasi.
 
 ## Cara Berkontribusi
 

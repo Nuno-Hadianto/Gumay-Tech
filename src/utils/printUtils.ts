@@ -28,7 +28,7 @@ export const generateNotaHtml = (
                 <div class="nota-header-left">
                     ${logoBase64 ? `<img src="${logoBase64}" alt="Logo" class="nota-logo" />` : ''}
                     <div class="nota-biz-info">
-                        <h2 class="nota-biz-name">${settings.business_name || 'NUNOX SERVIS'}</h2>
+                        <h2 class="nota-biz-name">${settings.business_name || 'GUMAY TECH'}</h2>
                         <div class="nota-biz-addr">📍 ${settings.address || ''}</div>
                         <div class="nota-biz-phone">📞 ${settings.whatsapp || settings.phone || ''}</div>
                     </div>
@@ -179,7 +179,7 @@ export const generateInvoiceHtml = (
                 <div class="inv-header-left">
                     ${logoHtml}
                     <div class="inv-biz-info">
-                        <h2 class="inv-biz-name">${settings.business_name || 'NUNOX SERVIS'}</h2>
+                        <h2 class="inv-biz-name">${settings.business_name || 'GUMAY TECH'}</h2>
                         <div class="inv-biz-addr">📍 ${settings.address || ''}</div>
                         <div class="inv-biz-phone">${settings.whatsapp || settings.phone || ''}</div>
                     </div>
@@ -252,7 +252,7 @@ export const generateInvoiceHtml = (
                 <div class="inv-sig-col">
                     <div class="nota-sig-title">Hormat Kami</div>
                     ${sigHtml}
-                    <div class="nota-sig-line">${settings.business_name || 'NUNOX'}</div>
+                    <div class="nota-sig-line">${settings.business_name || 'GUMAY TECH'}</div>
                 </div>
             </div>
         </div>

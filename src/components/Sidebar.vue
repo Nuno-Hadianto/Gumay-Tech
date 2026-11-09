@@ -1,8 +1,8 @@
 <template>
   <aside class="sidebar">
     <div class="sidebar-header sidebar-header-custom">
-      <img src="/img/logo.png" alt="nuNox_servis" class="sidebar-logo" />
-      <div class="sidebar-brand">nuNox_<span class="brand-accent">servis</span></div>
+      <img src="/img/logo.png" alt="Gumay Tech" class="sidebar-logo" />
+      <div class="sidebar-brand">Gumay <span class="brand-accent">Tech</span></div>
     </div>
     <nav class="sidebar-nav">
       <ul>

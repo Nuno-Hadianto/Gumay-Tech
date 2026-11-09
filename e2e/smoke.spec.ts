@@ -13,11 +13,11 @@ test('App starts and shows Dashboard', async () => {
   await window.waitForLoadState('domcontentloaded');
   
   // App should start and have correct title
-  await expect(window).toHaveTitle(/nuNox_servis/i);
+  await expect(window).toHaveTitle(/Gumay Tech/i);
   
   // Check if Dashboard is visible instead of login form
   const dashboardText = window.getByText('Dashboard', { exact: true }).first();
-  const brandName = window.getByText('nuNox_servis').first();
+  const brandName = window.getByText('Gumay Tech').first();
   
   await expect(dashboardText).toBeVisible();
   await expect(brandName).toBeVisible();

@@ -1,11 +1,11 @@
-# nuNox Servis
+# Gumay Tech
 **Aplikasi Point of Sales (POS) & Manajemen Layanan Servis Komputer/Laptop Offline**
 
 ---
 
 ## 📖 Tentang Aplikasi
 
-**nuNox Servis** adalah perangkat lunak desktop *offline* yang dirancang secara khusus untuk memfasilitasi kebutuhan manajemen operasional pada pusat layanan perbaikan (servis) perangkat elektronik, seperti komputer, laptop, dan ponsel pintar.
+**Gumay Tech** adalah perangkat lunak desktop *offline* yang dirancang secara khusus untuk memfasilitasi kebutuhan manajemen operasional pada pusat layanan perbaikan (servis) perangkat elektronik, seperti komputer, laptop, dan ponsel pintar.
 
 Aplikasi ini dikembangkan untuk memberikan solusi terhadap kendala stabilitas konektivitas internet di lapangan. Dengan arsitektur yang beroperasi secara sepenuhnya *offline*, seluruh data pelanggan, riwayat servis, serta laporan keuangan dicatat dan disimpan dengan aman secara lokal di dalam perangkat pengguna.
 
@@ -34,8 +34,8 @@ Bagi pengembang yang ingin menjalankan, memodifikasi, atau berkontribusi pada ba
 1. **Kloning Repositori**
 
    ```bash
-   git clone https://github.com/Nuno-Hadianto/nuNox_servis.git
-   cd nuNox_servis
+   git clone https://github.com/Nuno-Hadianto/Gumay-Tech.git
+   cd Gumay-Tech
    ```
 
 2. **Instalasi Dependensi**

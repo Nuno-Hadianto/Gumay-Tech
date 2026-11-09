@@ -13,10 +13,10 @@ if (process.env.NODE_ENV === 'test') {
     if (!fs.existsSync(dbDir)) {
         fs.mkdirSync(dbDir, { recursive: true });
     }
-    dbPath = path.join(dbDir, 'nunox_servis.db');
+    dbPath = path.join(dbDir, 'gumay_tech.db');
 } else {
     // Fallback for development
-    dbPath = path.join(__dirname, 'nunox_servis.db');
+    dbPath = path.join(__dirname, 'gumay_tech.db');
 }
 
 import * as drizzleSchema from './drizzleSchema';

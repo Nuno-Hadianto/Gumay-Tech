@@ -1,10 +1,10 @@
-# Arsitektur nuNox Servis
+# Arsitektur Gumay Tech
 
 Dokumen ini ditujukan untuk memandu _developer_ atau kontributor baru untuk memahami cara kerja aplikasi ini di bawah kap (_under the hood_).
 
 ## High-Level Architecture
 
-nuNox Servis menggunakan arsitektur aplikasi hibrida desktop yang mengawinkan **Electron (Node.js)** sebagai _backend_ lokal dan **Vue 3 (Vite)** sebagai _frontend_.
+Gumay Tech menggunakan arsitektur aplikasi hibrida desktop yang mengawinkan **Electron (Node.js)** sebagai _backend_ lokal dan **Vue 3 (Vite)** sebagai _frontend_.
 
 1. **Frontend (Vue 3)**: Bertanggung jawab pada presentasi UI (antarmuka pengguna), _routing_, dan _state management_ (menggunakan Pinia).
 2. **Backend (Electron Main Process)**: Bertanggung jawab pada operasi _file system_, eksekusi transaksi database, dan _bridging_ ke sistem operasi Windows/Linux.

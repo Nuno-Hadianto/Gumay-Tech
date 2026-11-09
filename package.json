@@ -1,5 +1,5 @@
 {
-  "name": "nunox_servis",
+  "name": "gumay_tech",
   "version": "1.0.0",
   "description": "",
   "main": "dist-electron/electron/main.js",
@@ -31,13 +31,13 @@
     ]
   },
   "build": {
-    "appId": "com.nunox_servis.app",
+    "appId": "com.gumay_tech.app",
     "publish": [
       {
         "provider": "github"
       }
     ],
-    "productName": "nuNox_servis",
+    "productName": "Gumay Tech",
     "icon": "public/img/icon.png",
     "directories": {
       "output": "dist"
@@ -50,7 +50,7 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "nuNox Servis",
+      "shortcutName": "Gumay Tech",
       "installerSidebar": "public/img/installerSidebar.bmp",
       "uninstallerSidebar": "public/img/installerSidebar.bmp",
       "installerHeader": "public/img/installerHeader.bmp"
@@ -64,16 +64,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nuno-Hadianto/nuNox_servis.git"
+    "url": "git+https://github.com/Nuno-Hadianto/Gumay-Tech.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Nuno-Hadianto/nuNox_servis/issues"
+    "url": "https://github.com/Nuno-Hadianto/Gumay-Tech/issues"
   },
-  "homepage": "https://github.com/Nuno-Hadianto/nuNox_servis#readme",
+  "homepage": "https://github.com/Nuno-Hadianto/Gumay-Tech#readme",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@tsconfig/node20": "^20.1.10",

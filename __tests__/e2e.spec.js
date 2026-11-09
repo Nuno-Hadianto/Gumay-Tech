@@ -2,7 +2,7 @@ const { _electron: electron } = require('@playwright/test');
 const { test, expect } = require('@playwright/test');
 const path = require('path');
 
-test.describe('nuNox_servis UI Black-box testing', () => {
+test.describe('Gumay Tech UI Black-box testing', () => {
   let electronApp;
   let window;
 
@@ -34,7 +34,7 @@ test.describe('nuNox_servis UI Black-box testing', () => {
 
   test('App should launch with correct title', async () => {
     const title = await window.title();
-    expect(title).toBe('nuNox_servis - Dashboard');
+    expect(title).toBe('Gumay Tech - Dashboard');
   });
 
   test('Sidebar should contain navigation links', async () => {

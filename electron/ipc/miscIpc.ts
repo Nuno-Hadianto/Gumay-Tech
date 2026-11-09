@@ -44,7 +44,7 @@ function registerMiscIpc(mainWindow: BrowserWindow) {
   // Backup & Restore
   ipcMain.handle('get-db-size', async () => {
     try {
-      const dbPath = path.join(app.getPath('userData'), 'database', 'nunox_servis.db');
+      const dbPath = path.join(app.getPath('userData'), 'database', 'gumay_tech.db');
       if (fs.existsSync(dbPath)) {
         const stats = fs.statSync(dbPath);
         return stats.size;
@@ -57,8 +57,8 @@ function registerMiscIpc(mainWindow: BrowserWindow) {
   });
 
   ipcMain.handle('backup-database', async () => {
-    // const dbPath = path.join(app.getPath('userData'), 'database', 'nunox_servis.db');
-    const defaultPath = `nuNox_servis_Backup_${new Date().toISOString().split('T')[0]}.db`;
+    // const dbPath = path.join(app.getPath('userData'), 'database', 'gumay_tech.db');
+    const defaultPath = `Gumay_Tech_Backup_${new Date().toISOString().split('T')[0]}.db`;
     const { filePath } = await dialog.showSaveDialog({
       title: 'Backup Database',
       defaultPath: defaultPath,
@@ -91,7 +91,7 @@ function registerMiscIpc(mainWindow: BrowserWindow) {
     });
     
     if (filePaths && filePaths.length > 0) {
-      const dbPath = path.join(app.getPath('userData'), 'database', 'nunox_servis.db');
+      const dbPath = path.join(app.getPath('userData'), 'database', 'gumay_tech.db');
       db.close();
       fs.copyFileSync(filePaths[0], dbPath);
       setTimeout(() => {
@@ -143,7 +143,7 @@ function registerMiscIpc(mainWindow: BrowserWindow) {
 
   ipcMain.handle('print-preview', async (_event: IpcMainInvokeEvent, options: Record<string, unknown> = {}) => {
     try {
-      const pdfPath = path.join(os.tmpdir(), `nunox_print_${Date.now()}.pdf`);
+      const pdfPath = path.join(os.tmpdir(), `gumay_print_${Date.now()}.pdf`);
       const pdfOptions: Record<string, unknown> = {
         printBackground: true,
         landscape: options.landscape || false,

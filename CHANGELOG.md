@@ -35,6 +35,6 @@ Format pencatatan ini didasarkan pada [Keep a Changelog](https://keepachangelog.
 
 ### Added
 
-- Rilis awal (Initial Release) aplikasi POS dan Manajemen Servis nuNox Servis.
+- Rilis awal (Initial Release) aplikasi POS dan Manajemen Servis Gumay Tech.
 - Fitur transaksi POS, riwayat servis, serta pengelolaan sparepart secara lokal.
 - Fungsi ekspor data (laporan PDF) dan fitur pengiriman *template* tagihan via WhatsApp.
