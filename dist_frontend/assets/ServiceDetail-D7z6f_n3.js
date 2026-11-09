@@ -1,11 +1,11 @@
-import{n as e}from"./rolldown-runtime-D2aABDIb.js";import{A as t,B as n,Cn as r,Dn as i,En as a,Et as o,I as s,Jt as c,K as l,Mn as u,On as d,R as f,S as p,Yt as m,Zt as h,_n as ee,a as g,an as _,bt as v,cn as y,dn as b,en as x,et as S,fn as C,gn as te,gt as w,i as T,in as E,jn as D,l as O,n as k,o as ne,r as re,rn as A,sn as j,t as M,tn as N,un as P,ut as F,vn as I,xn as L,yn as R}from"./index-CaofbMAx.js";import{i as ie,r as ae,s as z}from"./validators-C7RVv0Sl.js";import{n as oe,t as B}from"./SettingsService-DAHw6t18.js";import{n as se,t as ce}from"./CustomSelect-DW982Flm.js";import{n as le,t as V}from"./PartService-DENZoIOp.js";import{a as ue,i as H,n as U,r as W,t as G}from"./types-BIiWvN1m.js";var K,q,J,Y,de=e((()=>{K=e=>{if(!e)return`-`;try{let t=e.endsWith(`Z`)?e:`${e.replace(` `,`T`)}Z`,n=new Date(t);return isNaN(n.getTime())?new Date(e).toLocaleDateString(`id-ID`):n.toLocaleDateString(`id-ID`)}catch{return e}},q=(e,t,n,r)=>{e||={};let i=r?`<img src="${r}" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`:`<img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`;return`
+import{n as e}from"./rolldown-runtime-D2aABDIb.js";import{A as t,B as n,Cn as r,Dn as i,En as a,Et as o,I as s,Jt as c,K as l,Mn as u,On as d,R as f,S as p,Yt as m,Zt as h,_n as ee,a as g,an as _,bt as v,cn as y,dn as b,en as x,et as S,fn as C,gn as te,gt as w,i as T,in as E,jn as D,l as O,n as k,o as ne,r as re,rn as A,sn as j,t as M,tn as N,un as P,ut as F,vn as I,xn as L,yn as R}from"./index-Cq3HbPQe.js";import{i as ie,r as ae,s as z}from"./validators-C7RVv0Sl.js";import{n as oe,t as B}from"./SettingsService-DAHw6t18.js";import{n as se,t as ce}from"./CustomSelect-BcGhw3e0.js";import{n as le,t as V}from"./PartService-DENZoIOp.js";import{a as ue,i as H,n as U,r as W,t as G}from"./types-BIiWvN1m.js";var K,q,J,Y,de=e((()=>{K=e=>{if(!e)return`-`;try{let t=e.endsWith(`Z`)?e:`${e.replace(` `,`T`)}Z`,n=new Date(t);return isNaN(n.getTime())?new Date(e).toLocaleDateString(`id-ID`):n.toLocaleDateString(`id-ID`)}catch{return e}},q=(e,t,n,r)=>{e||={};let i=r?`<img src="${r}" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`:`<img src="/img/tanda-tangan.png" style="height: 60px; object-fit: contain; margin: 10px 0;" alt="Tanda Tangan" />`;return`
         <div class="print-nota nota-wrapper">
             <!-- Header -->
             <div class="nota-header">
                 <div class="nota-header-left">
                     ${n?`<img src="${n}" alt="Logo" class="nota-logo" />`:``}
                     <div class="nota-biz-info">
-                        <h2 class="nota-biz-name">${e.business_name||`NUNOX SERVIS`}</h2>
+                        <h2 class="nota-biz-name">${e.business_name||`GUMAY TECH`}</h2>
                         <div class="nota-biz-addr">📍 ${e.address||``}</div>
                         <div class="nota-biz-phone">📞 ${e.whatsapp||e.phone||``}</div>
                     </div>
@@ -83,7 +83,7 @@ import{n as e}from"./rolldown-runtime-D2aABDIb.js";import{A as t,B as n,Cn as r,
                 <div class="inv-header-left">
                     ${i?`<img src="${i}" alt="Logo" class="inv-logo" />`:`<div class="inv-logo-placeholder">${(e.business_name||`N`).charAt(0)}</div>`}
                     <div class="inv-biz-info">
-                        <h2 class="inv-biz-name">${e.business_name||`NUNOX SERVIS`}</h2>
+                        <h2 class="inv-biz-name">${e.business_name||`GUMAY TECH`}</h2>
                         <div class="inv-biz-addr">📍 ${e.address||``}</div>
                         <div class="inv-biz-phone">${e.whatsapp||e.phone||``}</div>
                     </div>
@@ -156,7 +156,7 @@ import{n as e}from"./rolldown-runtime-D2aABDIb.js";import{A as t,B as n,Cn as r,
                 <div class="inv-sig-col">
                     <div class="nota-sig-title">Hormat Kami</div>
                     ${o}
-                    <div class="nota-sig-line">${e.business_name||`NUNOX`}</div>
+                    <div class="nota-sig-line">${e.business_name||`GUMAY TECH`}</div>
                 </div>
             </div>
         </div>
