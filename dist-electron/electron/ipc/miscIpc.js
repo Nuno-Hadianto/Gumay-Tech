@@ -72,7 +72,7 @@ function registerMiscIpc(mainWindow) {
     // Backup & Restore
     electron_1.ipcMain.handle('get-db-size', async () => {
         try {
-            const dbPath = path_1.default.join(electron_1.app.getPath('userData'), 'database', 'nunox_servis.db');
+            const dbPath = path_1.default.join(electron_1.app.getPath('userData'), 'database', 'gumay_tech.db');
             if (fs_1.default.existsSync(dbPath)) {
                 const stats = fs_1.default.statSync(dbPath);
                 return stats.size;
@@ -85,8 +85,8 @@ function registerMiscIpc(mainWindow) {
         }
     });
     electron_1.ipcMain.handle('backup-database', async () => {
-        // const dbPath = path.join(app.getPath('userData'), 'database', 'nunox_servis.db');
-        const defaultPath = `nuNox_servis_Backup_${new Date().toISOString().split('T')[0]}.db`;
+        // const dbPath = path.join(app.getPath('userData'), 'database', 'gumay_tech.db');
+        const defaultPath = `Gumay_Tech_Backup_${new Date().toISOString().split('T')[0]}.db`;
         const { filePath } = await electron_1.dialog.showSaveDialog({
             title: 'Backup Database',
             defaultPath: defaultPath,
@@ -115,7 +115,7 @@ function registerMiscIpc(mainWindow) {
             filters: [{ name: 'Database', extensions: ['db'] }]
         });
         if (filePaths && filePaths.length > 0) {
-            const dbPath = path_1.default.join(electron_1.app.getPath('userData'), 'database', 'nunox_servis.db');
+            const dbPath = path_1.default.join(electron_1.app.getPath('userData'), 'database', 'gumay_tech.db');
             db_1.default.close();
             fs_1.default.copyFileSync(filePaths[0], dbPath);
             setTimeout(() => {
@@ -159,7 +159,7 @@ function registerMiscIpc(mainWindow) {
     });
     electron_1.ipcMain.handle('print-preview', async (_event, options = {}) => {
         try {
-            const pdfPath = path_1.default.join(os_1.default.tmpdir(), `nunox_print_${Date.now()}.pdf`);
+            const pdfPath = path_1.default.join(os_1.default.tmpdir(), `gumay_print_${Date.now()}.pdf`);
             const pdfOptions = {
                 printBackground: true,
                 landscape: options.landscape || false,

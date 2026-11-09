@@ -91,7 +91,7 @@ import {
 }
 .sidebar-logo:hover {
   transform: scale(1.05) rotate(-3deg);
-  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.5));
+  filter: drop-shadow(0 4px 14px rgba(243, 118, 36, 0.6));
 }
 .sidebar-brand {
   margin: 0;
@@ -104,7 +104,7 @@ import {
 }
 .sidebar-brand:hover {
   transform: translateY(-2px);
-  text-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  text-shadow: 0 4px 12px rgba(243, 118, 36, 0.5);
 }
 .brand-accent {
   color: var(--primary);

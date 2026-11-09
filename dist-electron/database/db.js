@@ -51,11 +51,11 @@ else if (electron_1.app) {
     if (!fs_1.default.existsSync(dbDir)) {
         fs_1.default.mkdirSync(dbDir, { recursive: true });
     }
-    dbPath = path_1.default.join(dbDir, 'nunox_servis.db');
+    dbPath = path_1.default.join(dbDir, 'gumay_tech.db');
 }
 else {
     // Fallback for development
-    dbPath = path_1.default.join(__dirname, 'nunox_servis.db');
+    dbPath = path_1.default.join(__dirname, 'gumay_tech.db');
 }
 const drizzleSchema = __importStar(require("./drizzleSchema"));
 const db = new better_sqlite3_2.default(dbPath);

@@ -244,7 +244,7 @@ onUnmounted(() => {
 
 .topbar-title h1:hover {
   transform: translateY(-2px) scale(1.02);
-  text-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  text-shadow: 0 4px 15px rgba(243, 118, 36, 0.4);
   color: var(--primary);
 }
 
@@ -265,9 +265,9 @@ onUnmounted(() => {
 }
 
 .topbar-icon-btn:hover {
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(243, 118, 36, 0.15);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 4px 12px rgba(243, 118, 36, 0.2);
   border-color: var(--primary);
   color: var(--primary);
 }
@@ -309,9 +309,9 @@ onUnmounted(() => {
 
 .datetime-badge:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 4px 12px rgba(243, 118, 36, 0.15);
   border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: rgba(243, 118, 36, 0.05);
 }
 
 .notification-item {

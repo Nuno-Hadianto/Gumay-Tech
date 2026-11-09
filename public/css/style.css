@@ -1,16 +1,17 @@
 /* --- CSS Variables & Theming --- */
 :root {
-  --bg-gradient: radial-gradient(circle at top right, #1e1b4b 0%, #0f172a 100%);
+  --bg-gradient: radial-gradient(circle at top right, #0c2340 0%, #0f172a 100%);
   
   /* Colors */
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
+  --primary: #f37624;
+  --primary-hover: #e06414;
+  --primary-rgb: 243, 118, 36;
   --secondary: #334155;
   --secondary-hover: #475569;
   --success: #10b981;
   --danger: #ef4444;
-  --warning: #f59e0b;
-  --info: #3b82f6;
+  --warning: #facc15;
+  --info: #0284c7;
 
   /* Typography */
   --font-family: 'Inter', system-ui, sans-serif;
@@ -259,7 +260,7 @@ a {
 }
 
 .sidebar-nav a:hover {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(243, 118, 36, 0.1);
   color: var(--primary);
   transform: translateX(5px);
 }
@@ -267,9 +268,9 @@ a {
 .sidebar-nav li.active a {
   font-weight: 600;
   color: white;
-  background: linear-gradient(90deg, var(--primary), rgba(99, 102, 241, 0.4));
-  border-left: 4px solid #a5b4fc;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  background: linear-gradient(90deg, var(--primary), rgba(243, 118, 36, 0.4));
+  border-left: 4px solid #facc15;
+  box-shadow: 0 4px 15px rgba(243, 118, 36, 0.4);
 }
 
 /* --- Topbar --- */
@@ -308,7 +309,7 @@ a {
   width: 300px;
   border-color: var(--primary);
   background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 0 2px rgba(243, 118, 36, 0.25);
 }
 
 .global-search-input::placeholder {
@@ -390,13 +391,13 @@ a {
 .btn-primary {
   background: var(--primary);
   color: white;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 14px rgba(243, 118, 36, 0.35);
 }
 
 .btn-primary:hover {
   background: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 20px rgba(243, 118, 36, 0.45);
 }
 
 .btn-success {
@@ -496,14 +497,14 @@ a {
 }
 
 .btn-icon-primary {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(243, 118, 36, 0.12);
   color: var(--primary);
 }
 .btn-icon-primary:hover {
   background: var(--primary);
   color: white;
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(243, 118, 36, 0.35);
 }
 
 .btn-warning {
@@ -533,13 +534,13 @@ a {
 
 .form-control:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 4px 12px rgba(243, 118, 36, 0.15);
   border-color: var(--primary);
 }
 
 .card:hover {
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3), 0 0 20px rgba(99, 102, 241, 0.2);
-  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3), 0 0 20px rgba(243, 118, 36, 0.2);
+  border-color: rgba(243, 118, 36, 0.3);
   transform: translateY(-2px);
 }
 
@@ -603,9 +604,9 @@ a {
 }
 
 .data-table tbody tr:hover {
-  background: rgba(99, 102, 241, 0.08);
+  background: rgba(243, 118, 36, 0.08);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 4px 12px rgba(243, 118, 36, 0.15);
   position: relative;
   z-index: 10;
 }
@@ -683,13 +684,13 @@ select.form-control {
 .form-control:focus {
   border-color: var(--primary);
   background: var(--input-bg-focus, rgba(0, 0, 0, 0.3));
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 0 3px rgba(243, 118, 36, 0.2);
 }
 
 /* Custom Date Picker Styling */
 .modern-date-input:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 4px 12px rgba(243, 118, 36, 0.15);
   border-color: var(--primary);
 }
 .modern-date-input::-webkit-calendar-picker-indicator {
@@ -835,8 +836,8 @@ select.form-control {
 }
 
 .table-container:hover {
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3), 0 0 20px rgba(99, 102, 241, 0.2);
-  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3), 0 0 20px rgba(243, 118, 36, 0.2);
+  border-color: rgba(243, 118, 36, 0.3);
   transform: translateY(-2px);
 }
 
@@ -871,9 +872,9 @@ select.form-control {
 }
 
 .data-table tbody tr:hover {
-  background: rgba(99, 102, 241, 0.08);
+  background: rgba(243, 118, 36, 0.08);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 4px 12px rgba(243, 118, 36, 0.15);
   position: relative;
   z-index: 10;
 }

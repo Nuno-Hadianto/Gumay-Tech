@@ -62,7 +62,7 @@ defineProps<{
 }
 
 .border-top.primary {
-  border-top: 4px solid var(--primary, #6366f1);
+  border-top: 4px solid var(--primary, #f37624);
 }
 .border-top.success {
   border-top: 4px solid var(--success, #10b981);
@@ -89,8 +89,8 @@ defineProps<{
 }
 
 .primary .stat-icon-wrapper {
-  background: rgba(99, 102, 241, 0.15);
-  color: var(--primary, #6366f1);
+  background: rgba(243, 118, 36, 0.15);
+  color: var(--primary, #f37624);
 }
 .success .stat-icon-wrapper {
   background: rgba(16, 185, 129, 0.15);
@@ -134,7 +134,7 @@ defineProps<{
 
 /* Base text color based on variant if not overridden by valueClass */
 .primary .stat-value:not(.text-success):not(.text-danger) {
-  color: var(--primary, #6366f1);
+  color: var(--primary, #f37624);
 }
 .success .stat-value:not(.text-success):not(.text-danger) {
   color: var(--success, #10b981);

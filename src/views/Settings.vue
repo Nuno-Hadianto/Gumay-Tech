@@ -465,8 +465,8 @@ onUnmounted(() => {
   border: 1px solid rgba(16, 185, 129, 0.2);
 }
 .primary-box {
-  background: rgba(99, 102, 241, 0.05);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: rgba(243, 118, 36, 0.05);
+  border: 1px solid rgba(243, 118, 36, 0.2);
   margin-bottom: 20px;
 }
 .btn-block {

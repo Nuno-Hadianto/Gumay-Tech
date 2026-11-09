@@ -302,10 +302,10 @@ onMounted(() => {
   box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
 }
 .badge-primary {
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(243, 118, 36, 0.15);
   color: var(--primary);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(243, 118, 36, 0.3);
+  box-shadow: 0 0 8px rgba(243, 118, 36, 0.3);
 }
 .badge-warning {
   background: rgba(245, 158, 11, 0.15);
